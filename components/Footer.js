@@ -2,8 +2,8 @@ import React from 'react'
 
 export default function Footer() {
     return (
-        <nav>
+        <footer>
             <p>Hecho por mi</p>
-        </nav>
+        </footer>
     )
 }
