@@ -21,9 +21,19 @@
   padding: 2px 16px;
   background: #fff;
   display: block;
-  margin: 20px 10px;
+  margin: 10px 5px;
   border-left: 8px solid #fff;
 }
 .single:hover {
   border-left: 8px solid #4979ff;
+}
+
+.notesGrid{
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.currentChordContainer{
+  padding: 30px 0;
+  text-align: center;
 }

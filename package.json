@@ -8,9 +8,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tonaljs/tonal": "^4.6.5",
+    "file-loader": "^6.2.0",
+    "howler": "^2.2.3",
     "next": "12.0.4",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "rehowl": "^0.6.0",
+    "url-loader": "^4.1.1"
   },
   "devDependencies": {
     "eslint": "7.32.0",
