@@ -17,11 +17,24 @@ export const getStaticProps = async () => {
 
 export default function Home({ chords }) {
 
-  const [currentChord, setCurrentChord] = useState(chords[0]);
+  const [currentChord, setCurrentChord] = useState(null);
+  const [chordName, setChordName] = useState('-');
+  const [chordSymbol, setChordSymbol] = useState("");
 
   const generateNextChord = () =>{
-    const randomPosition = Math.floor(Math.random() * chords.length)
-    setCurrentChord(chords[randomPosition])
+
+    let newChord;
+
+    do{
+      const randomPosition = Math.floor(Math.random() * chords.length)
+      newChord = chords[randomPosition];
+    }
+    while( newChord === currentChord)
+   
+    setCurrentChord(newChord)
+    setChordSymbol(newChord.note.symbol + newChord.chord_type.symbol)
+    setChordName(newChord.note.name + " " + newChord.chord_type.name)
+
   }
 
 
@@ -44,11 +57,11 @@ export default function Home({ chords }) {
     </div>
 
     <div className={styles.currentChordContainer}>
-      <h1>{currentChord.note.symbol + currentChord.chord_type.symbol}</h1>
-      <h2>{currentChord.note.name +" "+ currentChord.chord_type.name}</h2>
+      <h1>{chordSymbol}</h1>
+      <h2>{chordName}</h2>
     </div>
 
-    <ChordPlayer chordString={`${currentChord.note.symbol + currentChord.chord_type.symbol}`}/> 
+    <ChordPlayer chordString={`${chordSymbol}`}/> 
 
     <button className={styles.btn} onClick={ generateNextChord }>Next</button>
 
