@@ -1,6 +1,8 @@
 import styles from '../styles/Home.module.css'
-import { useState } from 'react'
+import { useState, useEffect} from 'react'
 import ChordPlayer from '../components/ChordPlayer'
+import { Chord } from '@tonaljs/tonal'
+import LoopFunction from '../components/LoopFunction'
 
 export const getStaticProps = async () => {
 
@@ -20,6 +22,10 @@ export default function Home({ chords }) {
   const [currentChord, setCurrentChord] = useState(null);
   const [chordName, setChordName] = useState('-');
   const [chordSymbol, setChordSymbol] = useState("");
+  const [chordNotes, setChordNotes] = useState("");
+  const [chordIntervals, setChordIntervals] = useState("");
+
+  const [playLoop, setPlayLoop] = useState(false);
 
   const generateNextChord = () =>{
 
@@ -30,13 +36,32 @@ export default function Home({ chords }) {
       newChord = chords[randomPosition];
     }
     while( newChord === currentChord)
+
+    const tonalChord =  Chord.get( newChord.note.symbol + newChord.chord_type.symbol )
    
     setCurrentChord(newChord)
-    setChordSymbol(newChord.note.symbol + newChord.chord_type.symbol)
-    setChordName(newChord.note.name + " " + newChord.chord_type.name)
-
+    setChordSymbol(tonalChord.symbol)
+    setChordName(tonalChord.name)
+    setChordIntervals(tonalChord.intervals.join(' - '))
+    setChordNotes(tonalChord.notes.join(' - '))
   }
+  
 
+  useEffect(() => {
+    
+    if (!playLoop) {
+      setCurrentChord(null);
+      setChordName('-');
+      setChordSymbol("");
+      setChordNotes("");
+      setChordIntervals("");
+    }
+    else{
+      generateNextChord()
+    }
+    
+
+  }, [playLoop])
 
   return (
     <>
@@ -57,13 +82,24 @@ export default function Home({ chords }) {
     </div>
 
     <div className={styles.currentChordContainer}>
-      <h1>{chordSymbol}</h1>
-      <h2>{chordName}</h2>
+      <h1 className={styles.chordSymbol}>{chordSymbol}</h1>
+      <h2 className={styles.chordName}>{chordName}</h2>
+      <h3 className={styles.chordNotes}>{chordNotes}</h3>
+      <h3 className={styles.chordIntervals}>{chordIntervals}</h3>
+    </div>
+
+    
+    
+
+    <button className={styles.btn} onClick={ generateNextChord }>Next</button>
+    <div className={styles.loopButtons}>
+      <button className={`${styles.btn} ${styles.inline}`} onClick={ () => { setPlayLoop(true) }}>Start Loop</button>
+      <button className={`${styles.btn} ${styles.inline}`} onClick={ () => { console.log("stop"); setPlayLoop(false) }}>Stop Loop</button>
     </div>
 
     <ChordPlayer chordString={`${chordSymbol}`}/> 
-
-    <button className={styles.btn} onClick={ generateNextChord }>Next</button>
+    <LoopFunction callback={ generateNextChord } delay={2000} isPlaying={playLoop}/>
+    
 
     </>
   )

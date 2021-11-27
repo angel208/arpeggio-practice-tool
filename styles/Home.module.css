@@ -37,3 +37,20 @@
   padding: 30px 0;
   text-align: center;
 }
+
+      
+.chordSymbol,
+.chordName,
+.chordNotes,
+.chordIntervals{
+  margin: 10px
+}
+
+.inline{
+  display: inline;
+  margin: 0px 20px
+}
+
+.loopButtons{
+  text-align: center;
+}
