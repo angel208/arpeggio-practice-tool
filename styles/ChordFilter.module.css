@@ -1,0 +1,15 @@
+.title {
+    color: #333;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.text {
+    color: #777;
+}
+
+.notesGrid{
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+
+}

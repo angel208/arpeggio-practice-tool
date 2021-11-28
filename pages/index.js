@@ -3,6 +3,7 @@ import { useState, useEffect} from 'react'
 import ChordPlayer from '../components/ChordPlayer'
 import { Chord } from '@tonaljs/tonal'
 import LoopFunction from '../components/LoopFunction'
+import ChordFilter from '../components/ChordFilter'
 
 export const getStaticProps = async () => {
 
@@ -20,6 +21,8 @@ export const getStaticProps = async () => {
 export default function Home({ chords }) {
 
   const [currentChord, setCurrentChord] = useState(null);
+  const [includedChords, setIncludedChords] = useState(chords);
+
   const [chordName, setChordName] = useState('-');
   const [chordSymbol, setChordSymbol] = useState("");
   const [chordNotes, setChordNotes] = useState("");
@@ -28,14 +31,16 @@ export default function Home({ chords }) {
   const [playLoop, setPlayLoop] = useState(false);
 
   const generateNextChord = () =>{
-
+    console.log(includedChords)
     let newChord;
 
     do{
-      const randomPosition = Math.floor(Math.random() * chords.length)
-      newChord = chords[randomPosition];
+      const activeChords = includedChords.filter( chord => chord.active == true);
+      console.log( activeChords )
+      const randomPosition = Math.floor(Math.random() * activeChords.length)
+      newChord = activeChords[randomPosition];
     }
-    while( newChord === currentChord)
+    while( newChord.id === currentChord?.id)
 
     const tonalChord =  Chord.get( newChord.note.symbol + newChord.chord_type.symbol )
    
@@ -44,6 +49,10 @@ export default function Home({ chords }) {
     setChordName(tonalChord.name)
     setChordIntervals(tonalChord.intervals.join(' - '))
     setChordNotes(tonalChord.notes.join(' - '))
+  }
+
+  const updateChords = ( newChords ) =>{
+    setIncludedChords( newChords )
   }
   
 
@@ -61,25 +70,12 @@ export default function Home({ chords }) {
     }
     
 
-  }, [playLoop])
+  }, [playLoop, includedChords])
 
   return (
     <>
-    <h1 className={styles.title}>Included Chords</h1>
-    <div className={styles.notesGrid}>
-      { 
-        chords.map( chord => (
-          <div key ={ chord.id } >
-            <a className={styles.single}>
-              <h3>
-                {  chord.note.symbol + chord.chord_type.symbol }
-              </h3>
-            </a>
-
-          </div>
-        )) 
-      }
-    </div>
+    
+    <ChordFilter chords={ chords } callback = { updateChords } />
 
     <div className={styles.currentChordContainer}>
       <h1 className={styles.chordSymbol}>{chordSymbol}</h1>
@@ -94,7 +90,7 @@ export default function Home({ chords }) {
     <button className={styles.btn} onClick={ generateNextChord }>Next</button>
     <div className={styles.loopButtons}>
       <button className={`${styles.btn} ${styles.inline}`} onClick={ () => { setPlayLoop(true) }}>Start Loop</button>
-      <button className={`${styles.btn} ${styles.inline}`} onClick={ () => { console.log("stop"); setPlayLoop(false) }}>Stop Loop</button>
+      <button className={`${styles.btn} ${styles.inline}`} onClick={ () => { setPlayLoop(false) }}>Stop Loop</button>
     </div>
 
     <ChordPlayer chordString={`${chordSymbol}`}/> 

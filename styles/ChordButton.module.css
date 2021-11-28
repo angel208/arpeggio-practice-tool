@@ -1,0 +1,17 @@
+.single {
+    padding: 2px 16px;
+    background: #fff;
+    display: block;
+    margin: 10px 5px;
+    border-left: 8px solid #fff;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.single:hover {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6);
+}
+  
+
+.active {
+    border-left: 8px solid #4979ff;
+}
