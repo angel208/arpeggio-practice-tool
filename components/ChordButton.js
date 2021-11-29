@@ -5,7 +5,7 @@ import styles from '../styles/ChordButton.module.css'
 export default function ChordButton( { chord, enabled = true, includeChords,  removeChords} ) {
 
     const [active, setActive] = useState(enabled)
-    const [chordSymbol, setChordSymbol] = useState(chord.note.symbol + chord.chord_type.symbol)
+    const [chordSymbol, setChordSymbol] = useState(chord.symbol)
 
     function alternateActive () {
         setActive( !active )

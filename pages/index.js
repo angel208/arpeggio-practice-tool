@@ -1,14 +1,13 @@
 import styles from '../styles/Home.module.css'
 import { useState, useEffect} from 'react'
 import ChordPlayer from '../components/ChordPlayer'
-import { Chord } from '@tonaljs/tonal'
 import LoopFunction from '../components/LoopFunction'
 import ChordFilter from '../components/ChordFilter'
+import {getChordList} from '../utils/chordUtils/chordUtils'
 
 export const getStaticProps = async () => {
 
-  const rest = await fetch('http://localhost:1337/chords?note.flat=false');
-  const data = await rest.json();
+  const data = getChordList(false)
 
   return {
     props : {
@@ -31,28 +30,26 @@ export default function Home({ chords }) {
   const [playLoop, setPlayLoop] = useState(false);
 
   const generateNextChord = () =>{
-    console.log(includedChords)
+
     let newChord;
 
     do{
       const activeChords = includedChords.filter( chord => chord.active == true);
-      console.log( activeChords )
       const randomPosition = Math.floor(Math.random() * activeChords.length)
       newChord = activeChords[randomPosition];
     }
-    while( newChord.id === currentChord?.id)
-
-    const tonalChord =  Chord.get( newChord.note.symbol + newChord.chord_type.symbol )
+    while( newChord.symbol === currentChord?.symbol)
    
     setCurrentChord(newChord)
-    setChordSymbol(tonalChord.symbol)
-    setChordName(tonalChord.name)
-    setChordIntervals(tonalChord.intervals.join(' - '))
-    setChordNotes(tonalChord.notes.join(' - '))
+    setChordSymbol(newChord.symbol)
+    setChordName(newChord.name)
+    setChordIntervals(newChord.intervals.join(' - '))
+    setChordNotes(newChord.notes.join(' - '))
+
   }
 
-  const updateChords = ( newChords ) =>{
-    setIncludedChords( newChords )
+  const updateChords = ( chordList ) =>{
+    setIncludedChords( chordList )
   }
   
 
@@ -74,8 +71,10 @@ export default function Home({ chords }) {
 
   return (
     <>
-    
-    <ChordFilter chords={ chords } callback = { updateChords } />
+
+
+    <ChordFilter chords={ includedChords } callback = { updateChords } />
+
 
     <div className={styles.currentChordContainer}>
       <h1 className={styles.chordSymbol}>{chordSymbol}</h1>
@@ -84,8 +83,8 @@ export default function Home({ chords }) {
       <h3 className={styles.chordIntervals}>{chordIntervals}</h3>
     </div>
 
-    
-    
+    <ChordPlayer chordString={`${chordSymbol}`}/> 
+    <LoopFunction callback={ generateNextChord } delay={2000} isPlaying={playLoop}/>
 
     <button className={styles.btn} onClick={ generateNextChord }>Next</button>
     <div className={styles.loopButtons}>
@@ -93,8 +92,7 @@ export default function Home({ chords }) {
       <button className={`${styles.btn} ${styles.inline}`} onClick={ () => { setPlayLoop(false) }}>Stop Loop</button>
     </div>
 
-    <ChordPlayer chordString={`${chordSymbol}`}/> 
-    <LoopFunction callback={ generateNextChord } delay={2000} isPlaying={playLoop}/>
+   
     
 
     </>

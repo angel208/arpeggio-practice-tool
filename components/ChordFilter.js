@@ -5,10 +5,10 @@ import ChordButton from './ChordButton'
 
 export default function ChordFilter( { chords, callback } ) {
 
-    const [ filteredChords , setFilteredChords ] = useState(chords.map( chord => ({ ...chord, active: 'true' })) )
+    const [ filteredChords , setFilteredChords ] = useState( chords )
 
     useEffect(() => {
-        callback(chords.map( chord => ({ ...chord, active: 'true' })))
+        callback( filteredChords )
     }, [])
 
     const includeChords = (chordsToBeIncluded) => {
@@ -16,7 +16,7 @@ export default function ChordFilter( { chords, callback } ) {
         let newList = [...filteredChords]
 
         chordsToBeIncluded.forEach( chord => {
-            let objIndex = newList.findIndex((item => item.id == chord.id));
+            let objIndex = newList.findIndex((item => item.symbol == chord.symbol));
             newList[objIndex].active = true
         })   
         
@@ -29,7 +29,7 @@ export default function ChordFilter( { chords, callback } ) {
         let newList = [...filteredChords]
 
         chordsToBeRemoved.forEach( chord => {
-            let objIndex = newList.findIndex((item => item.id == chord.id));
+            let objIndex = newList.findIndex((item => item.symbol == chord.symbol));
             console.log("removing")
             newList[objIndex].active = false
             console.log(newList)
@@ -48,7 +48,7 @@ export default function ChordFilter( { chords, callback } ) {
             { 
                 filteredChords.map( chord => (
     
-                        <ChordButton key={chord.id} chord = { chord } includeChords={includeChords} removeChords={removeChords} enabled={ chord.active }/>
+                        <ChordButton key={chord.symbol} chord = { chord } includeChords={includeChords} removeChords={removeChords} enabled={ chord.active }/>
 
                 )) 
             }
