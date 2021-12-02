@@ -3,7 +3,8 @@ import { useState, useEffect} from 'react'
 import ChordPlayer from '../components/ChordPlayer'
 import LoopFunction from '../components/LoopFunction'
 import ChordFilter from '../components/ChordFilter'
-import {getChordList} from '../utils/chordUtils/chordUtils'
+import {getChordList} from '../utils/chordUtils'
+import ArpeggioDiagram from '../components/ArpeggioDiagram'
 
 export const getStaticProps = async () => {
 
@@ -82,6 +83,8 @@ export default function Home({ chords }) {
       <h3 className={styles.chordNotes}>{chordNotes}</h3>
       <h3 className={styles.chordIntervals}>{chordIntervals}</h3>
     </div>
+
+    <ArpeggioDiagram/>
 
     <ChordPlayer chordString={`${chordSymbol}`}/> 
     <LoopFunction callback={ generateNextChord } delay={2000} isPlaying={playLoop}/>
