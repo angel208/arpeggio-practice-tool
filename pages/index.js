@@ -84,9 +84,9 @@ export default function Home({ chords }) {
       <h3 className={styles.chordIntervals}>{chordIntervals}</h3>
     </div>
 
-    <ArpeggioDiagram/>
-
+    <ArpeggioDiagram chordString={`${chordSymbol}`}/>
     <ChordPlayer chordString={`${chordSymbol}`}/> 
+    
     <LoopFunction callback={ generateNextChord } delay={2000} isPlaying={playLoop}/>
 
     <button className={styles.btn} onClick={ generateNextChord }>Next</button>

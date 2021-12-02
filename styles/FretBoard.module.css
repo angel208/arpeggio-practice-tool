@@ -43,10 +43,18 @@
 
 .note{
     width: 25%;
-    height: 80%;
-    background-color: black;
+    height: 75%;
+    background-color: lightgrey;
     position: absolute;
-    top: -45%;
+    top: -47%;
     left: 40%;
     border-radius: 50%;
+    border: solid 3px black
+}
+
+.note > span {
+    font-size: 0.6rem;
+    position: absolute;
+    top: 15%;
+    left: 10%;
 }

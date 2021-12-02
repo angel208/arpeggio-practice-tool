@@ -3,18 +3,20 @@ import styles from '../../styles/FretBoard.module.css'
 import Note from './Note'
 
 function parseNoteList( notes ) {
+    if (notes == null){
+        return []
+    }
     let parsedNotes = notes.map( note => { return { string : note.match(/(?<=[sS]+)([1234567890]+)/g)[0], fret: note.match(/(?<=[Ff]+)([1234567890]+)/g)[0] } })
     return parsedNotes
 
 }
 
-export default function FretboardRenderer({ frets = 6 , strings = 6, notes = [ 's1f1', 's1f5', 's2f1', 's2f5', 's3f3', 's4f2', 's4f3', 's5f3', 's6f1', 's6f5' ]}) {
+export default function FretboardRenderer({ frets = 6 , strings = 6, notes}) {
 
 
     let parsedNotes = parseNoteList(notes)
 
     function isNoteToBeRendered( string, fret ) {
-        console.log(parsedNotes.some( note => (note.string == string+1 && note.fret == fret+1 )))
         return parsedNotes.some((note => note.string == string+1 && note.fret == fret+1) )
     }
 
