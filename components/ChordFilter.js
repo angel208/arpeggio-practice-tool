@@ -42,7 +42,7 @@ export default function ChordFilter( { chords, callback } ) {
 
     return (
         <div>
-            <h1 className={styles.title}>Included Chords</h1>
+            <h3 className={styles.title}>Included Chords</h3>
             <div className={styles.notesGrid}>
             
             { 

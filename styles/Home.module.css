@@ -3,18 +3,36 @@
   padding-bottom: 20px;
   text-align: center;
 }
+
+.container{
+  height: 90%;
+  display: grid;
+  grid-template-columns: 6fr 4fr;
+}
+
+.chordPlayer{
+  grid-template-columns: 6fr 4fr;
+  background: white;
+  border-radius: 20px;
+  margin-left: 30px;
+  padding: 0 50px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+}
+
 .text {
   color: #777;
 }
 .btn {
   display: block;
-  width: 150px;
+  width: 110px;
   padding: 8px 0;
   margin: 20px auto;
-  background: #4979ff;
-  border-radius: 4px;
+  background: #563BFFE6;
+  border-radius: 6px;
   color: white;
   text-align: center;
+  border: none;
+  box-shadow: 0 4px 4px 0 rgba(0,0,0,0.1);
 }
 
 .single {
@@ -25,7 +43,7 @@
   border-left: 8px solid #fff;
 }
 .single:hover {
-  border-left: 8px solid #4979ff;
+  border-left: 8px solid #563BFFE6;
 }
 
 .notesGrid{
@@ -43,7 +61,8 @@
 .chordName,
 .chordNotes,
 .chordIntervals{
-  margin: 10px
+  margin: 10px;
+  height: 35px;
 }
 
 .inline{
@@ -53,4 +72,5 @@
 
 .loopButtons{
   text-align: center;
+  margin-top: 20px
 }

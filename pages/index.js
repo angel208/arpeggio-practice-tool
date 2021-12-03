@@ -23,10 +23,10 @@ export default function Home({ chords }) {
   const [currentChord, setCurrentChord] = useState(null);
   const [includedChords, setIncludedChords] = useState(chords);
 
-  const [chordName, setChordName] = useState('-');
-  const [chordSymbol, setChordSymbol] = useState("");
-  const [chordNotes, setChordNotes] = useState("");
-  const [chordIntervals, setChordIntervals] = useState("");
+  const [chordName, setChordName] = useState('-'); 
+  const [chordSymbol, setChordSymbol] = useState(" ");
+  const [chordNotes, setChordNotes] = useState(" ");
+  const [chordIntervals, setChordIntervals] = useState(" ");
 
   const [playLoop, setPlayLoop] = useState(false);
 
@@ -59,9 +59,9 @@ export default function Home({ chords }) {
     if (!playLoop) {
       setCurrentChord(null);
       setChordName('-');
-      setChordSymbol("");
-      setChordNotes("");
-      setChordIntervals("");
+      setChordSymbol(" ");
+      setChordNotes(" ");
+      setChordIntervals(" ");
     }
     else{
       generateNextChord()
@@ -71,33 +71,40 @@ export default function Home({ chords }) {
   }, [playLoop, includedChords])
 
   return (
-    <>
+    <div className={styles.container}>
+      
+      <div>
+        <h1 className={styles.pageTitle}>Arpeggio Practice</h1>
+        <ChordFilter chords={ includedChords } callback = { updateChords } />
+      </div>
 
 
-    <ChordFilter chords={ includedChords } callback = { updateChords } />
+      <div className={styles.chordPlayer}>
 
+        <div className={styles.currentChordContainer}>
+          <h1 className={styles.chordSymbol}>{chordSymbol}</h1>
+          <h2 className={styles.chordName}>{chordName}</h2>
+          <h3 className={styles.chordNotes}>{chordNotes}</h3>
+          <h3 className={styles.chordIntervals}>{chordIntervals}</h3>
+        </div>
 
-    <div className={styles.currentChordContainer}>
-      <h1 className={styles.chordSymbol}>{chordSymbol}</h1>
-      <h2 className={styles.chordName}>{chordName}</h2>
-      <h3 className={styles.chordNotes}>{chordNotes}</h3>
-      <h3 className={styles.chordIntervals}>{chordIntervals}</h3>
+        <ArpeggioDiagram chordString={`${chordSymbol}`}/>
+        <ChordPlayer chordString={`${chordSymbol}`}/> 
+        
+        <LoopFunction callback={ generateNextChord } delay={2000} isPlaying={playLoop}/>
+
+        
+        <div className={styles.loopButtons}>
+          <button className={`${styles.btn} ${styles.inline}`} onClick={ generateNextChord }>Next</button>
+          <button className={`${styles.btn} ${styles.inline}`} onClick={ generateNextChord }>Next</button>
+        </div>
+        <div className={styles.loopButtons}>
+          <button className={`${styles.btn} ${styles.inline}`} onClick={ () => { setPlayLoop(true) }}>Start Loop</button>
+          <button className={`${styles.btn} ${styles.inline}`} onClick={ () => { setPlayLoop(false) }}>Stop Loop</button>
+        </div>
+
+      </div>
+
     </div>
-
-    <ArpeggioDiagram chordString={`${chordSymbol}`}/>
-    <ChordPlayer chordString={`${chordSymbol}`}/> 
-    
-    <LoopFunction callback={ generateNextChord } delay={2000} isPlaying={playLoop}/>
-
-    <button className={styles.btn} onClick={ generateNextChord }>Next</button>
-    <div className={styles.loopButtons}>
-      <button className={`${styles.btn} ${styles.inline}`} onClick={ () => { setPlayLoop(true) }}>Start Loop</button>
-      <button className={`${styles.btn} ${styles.inline}`} onClick={ () => { setPlayLoop(false) }}>Stop Loop</button>
-    </div>
-
-   
-    
-
-    </>
   )
 }

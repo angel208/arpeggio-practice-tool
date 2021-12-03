@@ -1,7 +1,9 @@
 .title {
-    color: #333;
-    padding-bottom: 20px;
-    text-align: center;
+    color: rgb(151, 151, 151);
+    padding-bottom: 0px;
+    font-weight: lighter;
+    font-size: 1.7rem;
+    margin-top: 0px;
 }
 
 .text {
@@ -10,6 +12,6 @@
 
 .notesGrid{
     display: grid;
-    grid-template-columns: repeat(11, 1fr);
-
+    grid-template-columns: repeat(7, 1fr);
+    max-width: 0px;
 }

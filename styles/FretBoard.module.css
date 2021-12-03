@@ -8,15 +8,15 @@
 
 .fret{
     height: 100%;
-    width: 70px;
+    width: 60px;
     display: inline-block;
 }
 
 
 .string{
-    border-top: solid 2px black;
-    border-left: solid 2px black;
-    border-right: solid 2px black;
+    border-top: solid 2px #515050;
+    border-left: solid 2px #515050;
+    border-right: solid 2px #515050;
     flex-grow: 1;
     position: relative;
 }
@@ -47,14 +47,13 @@
 }
 
 .note{
-    width: 25%;
-    height: 75%;
-    background-color: lightgrey;
+    width: 23px;
+    height: 23px;
+    background-color: #563BFFBA;
     position: absolute;
-    top: -47%;
-    left: 40%;
+    top: -52%;
+    left: 35%;
     border-radius: 50%;
-    border: solid 3px black
 }
 
 .note > span {
