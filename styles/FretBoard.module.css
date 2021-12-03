@@ -32,6 +32,11 @@
     border-right: none;
 }
 
+.firstFret.lastString{
+    border-left: solid 6px rgba(0,0,0,0);
+}
+
+
 
 
 .strings{
@@ -57,4 +62,11 @@
     position: absolute;
     top: 15%;
     left: 10%;
+}
+
+.stringName{
+    position: absolute;
+left: -25px;
+top: -10px;
+font-size: 0.8rem;
 }

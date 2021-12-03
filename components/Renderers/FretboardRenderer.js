@@ -32,9 +32,13 @@ export default function FretboardRenderer({ frets = 6 , strings = 6, notes}) {
                             <div className={styles.strings}>
                                 {[...Array(strings)].map((string, j) => {
                                     return (
+                                        <>
+                                        
                                         <div key={j} className={`${styles.string} ${ j == (strings - 1) ? styles.lastString : ""}  ${ i == 0 ? styles.firstFret : ""}`}>
+                                            { i == 0 ? <span className={styles.stringName}>{j+1}</span> : "" }
                                            { isNoteToBeRendered(string = j, fret = i)? (<Note/>) : ""}
                                         </div>
+                                        </>
                                     )
                                 })}
                             </div>

@@ -16,9 +16,6 @@ export default function ArpeggioDiagram( { chordString } ) {
 
     useEffect(() => {
        const chordTypeSymbol = Chord.get( chordString ).aliases[0]
-       console.log("Asddddddddddddd")
-       console.log(chordString)
-       console.log(chordTypeSymbol)
        setNotes(arpeggioMap[chordTypeSymbol])
     }, [chordString])
 
