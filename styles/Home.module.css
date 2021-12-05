@@ -67,10 +67,11 @@
 
 .inline{
   display: inline;
-  margin: 0px 20px
+  margin: 8px 20px;
 }
 
 .loopButtons{
   text-align: center;
-  margin-top: 20px
+  margin-top: 30px;
+  margin-bottom: 30px;
 }

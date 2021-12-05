@@ -29,6 +29,7 @@ export default function Home({ chords }) {
   const [chordIntervals, setChordIntervals] = useState(" ");
 
   const [playLoop, setPlayLoop] = useState(false);
+  const [playBack, setPlayBack] = useState(false);
 
   const generateNextChord = () =>{
 
@@ -47,6 +48,10 @@ export default function Home({ chords }) {
     setChordIntervals(newChord.intervals.join(' - '))
     setChordNotes(newChord.notes.join(' - '))
 
+  }
+
+  const replayChord = () =>{
+    setPlayBack(true)
   }
 
   const updateChords = ( chordList ) =>{
@@ -70,6 +75,10 @@ export default function Home({ chords }) {
 
   }, [playLoop, includedChords])
 
+  useEffect(() => {
+    setPlayBack(false)
+  }, [playBack])
+
   return (
     <div className={styles.container}>
       
@@ -89,16 +98,14 @@ export default function Home({ chords }) {
         </div>
 
         <ArpeggioDiagram chordString={`${chordSymbol}`}/>
-        <ChordPlayer chordString={`${chordSymbol}`}/> 
+        <ChordPlayer chordString={`${chordSymbol}`}  playback={playBack}/> 
         
         <LoopFunction callback={ generateNextChord } delay={2000} isPlaying={playLoop}/>
 
         
         <div className={styles.loopButtons}>
+          <button className={`${styles.btn} ${styles.inline}`} onClick={ replayChord  }>Replay</button>
           <button className={`${styles.btn} ${styles.inline}`} onClick={ generateNextChord }>Next</button>
-          <button className={`${styles.btn} ${styles.inline}`} onClick={ generateNextChord }>Next</button>
-        </div>
-        <div className={styles.loopButtons}>
           <button className={`${styles.btn} ${styles.inline}`} onClick={ () => { setPlayLoop(true) }}>Start Loop</button>
           <button className={`${styles.btn} ${styles.inline}`} onClick={ () => { setPlayLoop(false) }}>Stop Loop</button>
         </div>

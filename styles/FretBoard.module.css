@@ -36,7 +36,12 @@
     border-left: solid 6px rgba(0,0,0,0);
 }
 
-
+.fretNumber{
+    color: gray;
+    text-align: center;
+    margin-top: -10px;
+    font-size: 0.6rem;
+}
 
 
 .strings{
@@ -59,8 +64,9 @@
 .note > span {
     font-size: 0.6rem;
     position: absolute;
-    top: 15%;
-    left: 10%;
+    top: 25%;
+    left: 17%;
+    color: white;
 }
 
 .stringName{

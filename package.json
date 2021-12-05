@@ -16,6 +16,7 @@
     "react-dom": "17.0.2",
     "react-icons": "^4.3.1",
     "rehowl": "^0.6.0",
+    "tonal-fretboard": "^0.69.9",
     "url-loader": "^4.1.1"
   },
   "devDependencies": {

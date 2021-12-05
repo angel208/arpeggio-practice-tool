@@ -4,7 +4,7 @@ import { useHowl, Play } from 'rehowl'
 import mp3 from '../assets/pianosprite.mp3'
 import PlayDelayed from './PlayDelayed';
 
-const initialOctave = '3';
+const initialOctave = '2';
 const lenghtOfNote = 2400;
 const C1Position = 24;
 const C7Position = 96;
