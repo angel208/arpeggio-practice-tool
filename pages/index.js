@@ -23,11 +23,6 @@ export default function Home({ chords }) {
   const [currentChord, setCurrentChord] = useState(null);
   const [includedChords, setIncludedChords] = useState(chords);
 
-  const [chordName, setChordName] = useState('-'); 
-  const [chordSymbol, setChordSymbol] = useState(" ");
-  const [chordNotes, setChordNotes] = useState(" ");
-  const [chordIntervals, setChordIntervals] = useState(" ");
-
   const [playLoop, setPlayLoop] = useState(false);
   const [playBack, setPlayBack] = useState(false);
 
@@ -43,10 +38,6 @@ export default function Home({ chords }) {
     while( newChord.symbol === currentChord?.symbol)
    
     setCurrentChord(newChord)
-    setChordSymbol(newChord.symbol)
-    setChordName(newChord.name)
-    setChordIntervals(newChord.intervals.join(' - '))
-    setChordNotes(newChord.notes.join(' - '))
 
   }
 
@@ -63,16 +54,11 @@ export default function Home({ chords }) {
     
     if (!playLoop) {
       setCurrentChord(null);
-      setChordName('-');
-      setChordSymbol(" ");
-      setChordNotes(" ");
-      setChordIntervals(" ");
     }
     else{
       generateNextChord()
     }
-    
-
+ 
   }, [playLoop, includedChords])
 
   useEffect(() => {
@@ -91,16 +77,16 @@ export default function Home({ chords }) {
       <div className={styles.chordPlayer}>
 
         <div className={styles.currentChordContainer}>
-          <h1 className={styles.chordSymbol}>{chordSymbol}</h1>
-          <h2 className={styles.chordName}>{chordName}</h2>
-          <h3 className={styles.chordNotes}>{chordNotes}</h3>
-          <h3 className={styles.chordIntervals}>{chordIntervals}</h3>
+          <h1 className={styles.chordSymbol}>{currentChord?.symbol }</h1>
+          <h2 className={styles.chordName}>{currentChord?.name ? currentChord?.name : "-"}</h2>
+          <h3 className={styles.chordNotes}>{currentChord?.intervals.join(' - ')}</h3>
+          <h3 className={styles.chordIntervals}>{currentChord?.notes.join(' - ')}</h3>
         </div>
 
-        <ArpeggioDiagram chordString={`${chordSymbol}`}/>
-        <ChordPlayer chordString={`${chordSymbol}`}  playback={playBack}/> 
+        <ArpeggioDiagram chordString={currentChord?.symbol}/>
+        <ChordPlayer chordString={currentChord?.symbol}  playback={playBack} noteCount={7} noteDelay={150}/> 
         
-        <LoopFunction callback={ generateNextChord } delay={2000} isPlaying={playLoop}/>
+        <LoopFunction callback={ generateNextChord } delay={5000} isPlaying={playLoop}/>
 
         
         <div className={styles.loopButtons}>

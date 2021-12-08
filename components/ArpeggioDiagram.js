@@ -22,11 +22,10 @@ export default function ArpeggioDiagram( { chordString, string = 6, finger = 1 }
  
     useEffect(() => {
 
-      if( chordString != ' ' ){
+      if( chordString ){
 
         const chordTypeSymbol = Chord.get( chordString ).aliases[0]
         const chordTonic = Chord.get(chordString).tonic
-        console.log("-----------asd---------")
         const arpeggioPositions = arpeggioMap[chordTypeSymbol]
         let tonicFretPosition
         fretBoardMap[ 6 - string ].find(function(note,index){
@@ -44,10 +43,10 @@ export default function ArpeggioDiagram( { chordString, string = 6, finger = 1 }
             return transposedArpeggioPositions[stringIndex].includes(fretIndex) ? note : null
           }))
         arpeggioFretboardMapped =  arpeggioFretboardMapped.map(  (stringArray) => stringArray.filter( (note, fretIndex) => { return fretIndex >= tonicFretPosition }))
-        console.log("--------------------")
         setNotes(arpeggioFretboardMapped.reverse())
 
       }
+
     }, [chordString])
 
 

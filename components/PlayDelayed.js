@@ -1,32 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Play } from 'rehowl'
+import useTimeout from '../utils/hooks/useTimeout';
 
-export default function PlayDelayed( {howl, sprite, volume, delayed, delay} ) {
+export default function PlayDelayed( {howl, sprite, volume, delayed, delay = 500} ) {
+    const [completed, setCompleted] = useState(false)
 
-    const [delayMS, setdelayMS] = useState(delay)
-    const [inTimeout, setInTimeout] = useState(false)
+    useTimeout(() => {
+        setCompleted(true)
+    }, delay)
 
-    useEffect(() => {
+    if ( delayed && !completed ) return null
 
-        if(delayed){
-
-            if(!delay){
-                setdelayMS( 500 )
-                console.log('delay set to ' + delay)
-            }
-
-            setTimeout(() => setInTimeout(true), delayMS);
-
-        }
-        return () => {}
-    }, [])
-
-    //render
-    if(inTimeout == true){
-        return <Play howl={howl} sprite={`${sprite}`} volume={volume}  ></Play>
-    }
-    else{
-        return <></>
-    }
-    
+    return <Play howl={howl} sprite={`${sprite}`} volume={volume}  />
 }
+
