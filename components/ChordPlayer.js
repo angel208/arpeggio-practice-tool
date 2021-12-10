@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import { Chord, transpose, note } from '@tonaljs/tonal'
 import { useHowl, Play } from 'rehowl'
 import mp3 from '../assets/pianosprite.mp3'
@@ -44,7 +44,7 @@ let generateIndexes = () => {
 
 }
 
-export default function ChordPlayer({chordString, noteCount = 4, noteDelay = 75, playBack}) {
+export default function ChordPlayer({chordString, noteCount = 4, noteDelay = 75, playback}) {
 
     const [chordMIDISequence, setChordMIDISequence] = useState([])
     const spriteDigits = generateIndexes();
@@ -65,7 +65,7 @@ export default function ChordPlayer({chordString, noteCount = 4, noteDelay = 75,
 
         setChordMIDISequence(newMIDISquence)
         
-      }, [chordString, playBack]);
+      }, [chordString, playback]);
 
 
     return (
