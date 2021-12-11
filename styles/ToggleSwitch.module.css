@@ -1,0 +1,118 @@
+.toggleSwitch {
+    position: relative;
+    width: 75px;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    text-align: left;
+}
+.toggleSwitchCheckbox {
+    display: none;
+}
+.toggleSwitchLabel {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 0 solid #bbb;
+    border-radius: 15px;
+    margin: 0;
+}
+.toggleSwitchInner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.toggleSwitchInner:before, .toggleSwitchInner:after {
+    display: block;
+    float: left;
+    width: 50%;
+    height: 34px;
+    padding: 0;
+    line-height: 34px;
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+.toggleSwitchInner:before {
+    content: attr(data-yes);
+    text-transform: uppercase;
+    padding-left: 10px;
+    background-color: #563BFFE6;
+    color: #fff;
+}
+.toggleSwitchDisabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+.toggleSwitchDisabled:before {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+.toggleSwitchInner:after {
+    content: attr(data-no);
+    text-transform: uppercase;
+    padding-right: 10px;
+    background-color: #bbb;
+    color: #fff;
+    text-align: right;
+}
+.toggleSwitchSwitch {
+    display: block;
+    width: 24px;
+    margin: 5px;
+    background: #fff;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 40px;
+    border: 0 solid #bbb;
+    border-radius: 20px;
+    transition: all 0.3s ease-in 0s;
+}
+.toggleSwitchCheckbox:checked + .toggleSwitchLabel .toggleSwitchInner {
+    margin-left: 0;
+}
+.toggleSwitchCheckbox:checked + .toggleSwitchLabel .toggleSwitchSwitch {
+    right: 0px;
+}
+
+/* SMALL */
+.toggleSwitch.smallSwitch {
+    width: 40px;
+}
+.toggleSwitch.smallSwitch .toggleSwitch-inner:after, .toggleSwitch.smallSwitch .toggleSwitch-inner:before {
+    content: "";
+    height: 20px;
+    line-height: 20px;
+}
+.toggleSwitch.smallSwitch .toggleSwitchSwitch {
+    width: 16px;
+    right: 20px;
+    margin: 2px;
+}
+
+/* responsiveness */
+
+@media screen and (max-width: 991px) {
+    .toggleSwitch {
+        transform: scale(0.9);
+    }
+}
+@media screen and (max-width: 767px) {
+    .toggleSwitch {
+        transform: scale(0.825);
+    }
+}
+@media screen and (max-width: 575px) {
+    .toggleSwitch {
+        transform: scale(0.75);
+    }
+}
+
+.label{
+    color: gray
+}

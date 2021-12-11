@@ -9,7 +9,7 @@ import useStore from '../utils/hooks/useStore'
 
 export const getStaticProps = async () => {
 
-  const data = getChordList(false)
+  const data = getChordList(true)
 
   return {
     props : {
@@ -24,7 +24,7 @@ export default function Home({ chords }) {
   const [currentChord, setCurrentChord] = useState(null);
   
   const includedChords = useStore(state => state.includedChords)
-  const setIncludedChords1 = useStore(state => state.setIncludedChords1)  
+  const setIncludedChords = useStore(state => state.setIncludedChords)  
 
   const [playLoop, setPlayLoop] = useState(false);
   const [playBack, setPlayBack] = useState(false);
@@ -51,7 +51,7 @@ export default function Home({ chords }) {
 
   
   useEffect(() => {
-    setIncludedChords1(chords)
+    setIncludedChords(chords)
   }, [])
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import { Chord, ChordType } from '@tonaljs/tonal'
 
 const notes = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B']; 
 
-function getChordList( flat = true , chordTypes = [ 'maj7', 'm7', '7' ] ) {
+function getChordList( {flat = true , chordTypes = [ 'maj7', 'm7', '7' ] }) {
 
         let chordList = []
 

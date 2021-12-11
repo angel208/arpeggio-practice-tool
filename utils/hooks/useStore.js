@@ -2,7 +2,7 @@ import create from 'zustand'
 
 const useStore = create(set => ({
     includedChords: [],
-    setIncludedChords1: ( chords ) => set({ includedChords: chords }),
+    setIncludedChords: ( chords ) => set({ includedChords: chords }),
     includeChords: (chordsToBeIncluded) => set( state => ({includedChords: includeChords( state.includedChords , chordsToBeIncluded)})),
     removeChords: (chordsToBeRemoved) => set( state => ({includedChords: removeChords( state.includedChords , chordsToBeRemoved)})),
   }))
