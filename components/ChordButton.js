@@ -1,31 +1,32 @@
 import React from 'react'
 import { useState, useEffect} from 'react'
 import styles from '../styles/ChordButton.module.css'
+import useStore from '../utils/hooks/useStore'
+import useUpdateEffect from '../utils/hooks/useUpdateEffect'
 
-export default function ChordButton( { chord, enabled = true, includeChords,  removeChords} ) {
+export default function ChordButton( { chord, enabled = true} ) {
 
     const [active, setActive] = useState(enabled)
     const [chordSymbol, setChordSymbol] = useState(chord.symbol)
+
+    const includeChords = useStore(state => state.includeChords)  
+    const removeChords = useStore(state => state.removeChords)  
 
     function alternateActive () {
         setActive( !active )
         console.log( !active )
     }
     
-    useEffect(() => {
+    useUpdateEffect(() => {
         
-        if( active )
+        if( active ){
             includeChords([chord])
+        } 
         else
             removeChords([chord])
         
     }, [active])
 
-    useEffect(() => {
-        
-        setActive(enabled)
-        
-    }, [enabled])
 
     return (
         <div  id={chordSymbol} onClick={  alternateActive }>

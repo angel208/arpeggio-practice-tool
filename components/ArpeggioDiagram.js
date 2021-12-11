@@ -1,8 +1,18 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
 import FretboardRenderer from './Renderers/FretboardRenderer';
-import { Chord } from '@tonaljs/tonal';
+import { Chord, transpose, Note } from '@tonaljs/tonal';
 var tonalFretboard = require('tonal-fretboard')
+
+function getIntervals(chordString) {
+
+  let intervals = Chord.get(chordString).intervals
+  let notes = Chord.get(chordString).notes
+  let flatNotes = notes.map( note => Note.accidentals(note) == "#" ? Note.enharmonic(note) : note)
+
+  let notesWithIntervals = intervals.map( (interval, intervalIndex) => { return { note: flatNotes[intervalIndex] , interval: interval }  } )
+  return notesWithIntervals
+}
 
 export default function ArpeggioDiagram( { chordString, string = 6, finger = 1 } ) {
 
@@ -16,6 +26,7 @@ export default function ArpeggioDiagram( { chordString, string = 6, finger = 1 }
     const tuning = tonalFretboard.tuning('guitar')
 
     const [notes, setNotes] = useState([])
+    const [intervalMap, setIntervalMap] = useState([])
     const [initialFret, setInitialFret] = useState(0)
     const [fretBoardMap, setFretBoardMap] = useState( tonalFretboard.notes(tuning, 1, 16) )
 
@@ -40,11 +51,12 @@ export default function ArpeggioDiagram( { chordString, string = 6, finger = 1 }
         setInitialFret(tonicFretPosition)
         const transposedArpeggioPositions = arpeggioPositions.map( subarray => subarray.map( position => position + tonicFretPosition ))
         const arpeggioFretboardMapped = fretBoardMap.map( (stringArray, stringIndex) => stringArray.map( (note, fretIndex) => {
-            return transposedArpeggioPositions[stringIndex].includes(fretIndex) ? note : null
+            const flatNote = Note.accidentals(note) == "#" ? Note.enharmonic(note) : note
+            return transposedArpeggioPositions[stringIndex].includes(fretIndex) ? flatNote : null
           }))
         arpeggioFretboardMapped =  arpeggioFretboardMapped.map(  (stringArray) => stringArray.filter( (note, fretIndex) => { return fretIndex >= tonicFretPosition }))
         setNotes(arpeggioFretboardMapped.reverse())
-
+        setIntervalMap(getIntervals(chordString))
       }
 
     }, [chordString])
@@ -52,7 +64,7 @@ export default function ArpeggioDiagram( { chordString, string = 6, finger = 1 }
 
     return (
         <div>
-          <FretboardRenderer notes = {notes} initialFret={initialFret} />
+          <FretboardRenderer initialFret={initialFret} notes={notes} showIntervals={true} intervalMap={intervalMap} />
         </div>
     )
 }

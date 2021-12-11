@@ -5,6 +5,7 @@ import LoopFunction from '../components/LoopFunction'
 import ChordFilter from '../components/ChordFilter'
 import {getChordList} from '../utils/chordUtils'
 import ArpeggioDiagram from '../components/ArpeggioDiagram'
+import useStore from '../utils/hooks/useStore'
 
 export const getStaticProps = async () => {
 
@@ -21,7 +22,9 @@ export const getStaticProps = async () => {
 export default function Home({ chords }) {
 
   const [currentChord, setCurrentChord] = useState(null);
-  const [includedChords, setIncludedChords] = useState(chords);
+  
+  const includedChords = useStore(state => state.includedChords)
+  const setIncludedChords1 = useStore(state => state.setIncludedChords1)  
 
   const [playLoop, setPlayLoop] = useState(false);
   const [playBack, setPlayBack] = useState(false);
@@ -41,14 +44,15 @@ export default function Home({ chords }) {
 
   }
 
+
   const replayChord = () =>{
     setPlayBack(true)
   }
 
-  const updateChords = ( chordList ) =>{
-    setIncludedChords( chordList )
-  }
   
+  useEffect(() => {
+    setIncludedChords1(chords)
+  }, [])
 
   useEffect(() => {
     
@@ -70,7 +74,7 @@ export default function Home({ chords }) {
       
       <div>
         <h1 className={styles.pageTitle}>Arpeggio Practice</h1>
-        <ChordFilter chords={ includedChords } callback = { updateChords } />
+        <ChordFilter/>
       </div>
 
 

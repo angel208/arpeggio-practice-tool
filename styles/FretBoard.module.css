@@ -69,6 +69,14 @@
     color: white;
 }
 
+
+.root > span {
+    left: 33%;
+    color: red;
+    font-weight: bold;
+}
+
+
 .stringName{
     position: absolute;
 left: -25px;
