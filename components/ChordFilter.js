@@ -20,10 +20,13 @@ export default function ChordFilter( ) {
 
     function toggleFlats( flats) {
 
-        const flatChordList = includedChords.filter( chord => Note.get( chord.tonic ).alt != 0  )
+        const flatChordList = includedChords.filter( chord => ( Note.get( chord.tonic ).alt != 0 ) )
 
-        if(flats)
-            includeChords(flatChordList)
+        if(flats){
+            //only flats that are of the active chordtypes
+            const flatChordsToAdd = flatChordList.filter( chord => chordTypes[chord.aliases[0]] == true  )
+            includeChords(flatChordsToAdd)
+        }
         else
             removeChords(flatChordList)
 
@@ -47,8 +50,14 @@ export default function ChordFilter( ) {
 
         if(chordTypeIsActive)
             removeChords(chordListByChordType)
-        else
+        else{
+            if( flats == false )
+                //remove flats
+                chordListByChordType = chordListByChordType.filter( chord => Note.get( chord.tonic ).alt == 0  )
+
             includeChords(chordListByChordType)
+        }
+            
 
         let newChordTypes = chordTypes
         newChordTypes[chordTypeSymbol] = !chordTypeIsActive
