@@ -6,7 +6,7 @@ export default function ToggleSwitch({name, checked, callBack, optionLabels = ["
     return (
         <div>
             <p className={styles.label}>{name}</p>
-            <div className={styles.toggleSwitch}>
+            <div className={`${styles.toggleSwitch}`}>
                 
                 <input
                 type="checkbox"

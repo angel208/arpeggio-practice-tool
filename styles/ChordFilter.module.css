@@ -3,7 +3,8 @@
     padding-bottom: 0px;
     font-weight: lighter;
     font-size: 1.7rem;
-    margin-top: 0px;
+    margin-top: 30px;
+    margin-bottom: 5px;
 }
 
 .text {
@@ -14,4 +15,18 @@
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     max-width: 0px;
+}
+
+.filterGrid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.filterSection > h3{
+    color: rgb(151, 151, 151);
+    padding-bottom: 0px;
+    font-weight: lighter;
+    font-size: 1.4rem;
+    margin-top: 20px;
+    margin-bottom: 0px;
 }

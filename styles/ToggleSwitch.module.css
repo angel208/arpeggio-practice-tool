@@ -1,6 +1,6 @@
 .toggleSwitch {
     position: relative;
-    width: 75px;
+    width: 50px;
     display: inline-block;
     vertical-align: middle;
     -webkit-user-select: none;
@@ -29,7 +29,7 @@
     display: block;
     float: left;
     width: 50%;
-    height: 34px;
+    height: 25px;
     padding: 0;
     line-height: 34px;
     font-size: 14px;
@@ -62,13 +62,13 @@
 }
 .toggleSwitchSwitch {
     display: block;
-    width: 24px;
+    width: 15px;
     margin: 5px;
     background: #fff;
     position: absolute;
     top: 0;
     bottom: 0;
-    right: 40px;
+    right: 25px;
     border: 0 solid #bbb;
     border-radius: 20px;
     transition: all 0.3s ease-in 0s;
@@ -114,5 +114,8 @@
 }
 
 .label{
-    color: gray
+    margin: 2px 5px;
+    margin-top: 10px;
+    color: #9d9d9d;
+    font-size: 0.85rem;
 }

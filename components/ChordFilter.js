@@ -12,7 +12,11 @@ export default function ChordFilter( ) {
     const includeChords = useStore(state => state.includeChords)  
     const removeChords = useStore(state => state.removeChords)  
 
-    const [flats, setFlats] = useState(false)
+    const [flats, setFlats] = useState(true)
+    const [chordTypes, setChordTypes] = useState(
+        Object.fromEntries([ 'maj7', 'm7', '7' ].map( chord => { return [chord, true]}))
+    );
+    
 
     function toggleFlats( flats) {
 
@@ -26,22 +30,77 @@ export default function ChordFilter( ) {
         setFlats(flats)
     }
 
+    function toggleChord( chord ){    
+        if( chord.active ){
+            removeChords([chord])
+        } 
+        else
+            includeChords([chord])
+    }
+
+    function toggleChordType( chordTypeSymbol ){ 
+
+        //get all chords by certain chordtype
+        const chordListByChordType = includedChords.filter( chord => chord.aliases.includes(chordTypeSymbol)  )
+
+        const chordTypeIsActive = chordTypes[chordTypeSymbol]
+
+        if(chordTypeIsActive)
+            removeChords(chordListByChordType)
+        else
+            includeChords(chordListByChordType)
+
+        let newChordTypes = chordTypes
+        newChordTypes[chordTypeSymbol] = !chordTypeIsActive
+        setChordTypes(newChordTypes)
+
+    }
+
 
     return (
         <div>
+
+           
+
+            <div className={styles.filterSection}>
+                <h3>Chord Types</h3>
+                <div className={styles.filterGrid}>
+                    {Object.keys(chordTypes).map( chordType => (
+                        <ToggleSwitch key={chordType} name={chordType} checked={chordTypes[chordType]} callBack={ () => {toggleChordType(chordType)} } />
+                    )) }
+                </div>
+            </div>
+
+            <div className={styles.filterSection}>
+                <h3>Apreggio Filters</h3>
+                <div className={styles.filterGrid}>
+                    <ToggleSwitch key={'6th String'} name={'6th String'} checked={ true } callBack={ () => {toggleChordType(null)} } />
+                    <ToggleSwitch key={'5th String'} name={'5th String'} checked={ true } callBack={ () => {toggleChordType(null)} } />
+                    <ToggleSwitch key={'index finger'} name={'index finger'} checked={ true } callBack={ () => {toggleChordType(null)} } />
+                    <ToggleSwitch key={'middle finger'} name={'middle finger'} checked={ true } callBack={ () => {toggleChordType(null)} } />
+                </div>
+            </div>
+            
+            <div className={styles.filterSection}>
+                <h3>Other Filters</h3>
+                <div className={styles.filterGrid}>
+                    <ToggleSwitch name={`flats`} checked={flats} callBack={ () => {toggleFlats(!flats)} } />
+                </div>
+            </div>
+
             <h3 className={styles.title}>Included Chords</h3>
             <div className={styles.notesGrid}>
             
             { 
                 includedChords.map( chord => (
     
-                        <ChordButton key={chord.symbol} chord = { chord } enabled={ chord.active }/>
+                        <ChordButton key={chord.symbol} chord = { chord } active={ chord.active } callback={ toggleChord }/>
 
                 )) 
             }
             
             </div>
-            <ToggleSwitch name={`flats`} checked={flats} callBack={ () => {toggleFlats(!flats)} } />
+            
 
         </div>
     )
