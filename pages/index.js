@@ -22,9 +22,13 @@ export const getStaticProps = async () => {
 export default function Home({ chords }) {
 
   const [currentChord, setCurrentChord] = useState(null);
+  const [currentArpeggio, setCurrentArpeggio] = useState(null);
   
   const includedChords = useStore(state => state.includedChords)
-  const setIncludedChords = useStore(state => state.setIncludedChords)  
+  const setIncludedChords = useStore(state => state.setIncludedChords)
+  
+  const includedArpeggioFingers = useStore(state => state.includedArpeggioFingers)
+  const includedArpeggioStrings = useStore(state => state.includedArpeggioStrings)
 
   const [playLoop, setPlayLoop] = useState(false);
   const [playBack, setPlayBack] = useState(false);
@@ -39,9 +43,14 @@ export default function Home({ chords }) {
       newChord = activeChords[randomPosition];
     }
     while( newChord.symbol === currentChord?.symbol)
-   
-    setCurrentChord(newChord)
 
+    const activeFingers = includedArpeggioFingers.filter( finger => finger.active == true)
+    const newFinger = activeFingers[ Math.floor(Math.random() * activeFingers.length)]
+    const activeStrings = includedArpeggioStrings.filter( string => string.active == true)
+    const newString = activeStrings[ Math.floor(Math.random() * activeStrings.length)]
+
+    setCurrentChord(newChord)
+    setCurrentArpeggio({ string : newString, finger: newFinger})
   }
 
 
@@ -85,9 +94,10 @@ export default function Home({ chords }) {
           <h2 className={styles.chordName}>{currentChord?.name ? currentChord?.name : "-"}</h2>
           <h3 className={styles.chordNotes}>{currentChord?.intervals.join(' - ')}</h3>
           <h3 className={styles.chordIntervals}>{currentChord?.notes.join(' - ')}</h3>
+          <h3 className={styles.arpeggioData}>{currentArpeggio?.string.name + " - " + currentArpeggio?.finger.name}</h3>
         </div>
 
-        <ArpeggioDiagram chordString={currentChord?.symbol}/>
+        <ArpeggioDiagram chordString={currentChord?.symbol} string ={currentArpeggio?.string.number} finger = {currentArpeggio?.finger.number} />
         <ChordPlayer chordString={currentChord?.symbol}  playback={playBack} noteCount={7} noteDelay={150}/> 
         
         <LoopFunction callback={ generateNextChord } delay={5000} isPlaying={playLoop}/>

@@ -9,7 +9,7 @@ const initialOctave = 2;
 const lenghtOfNote = 2400;
 const C1Position = 24;
 const C7Position = 96;
-const volume = 0.05;
+const volume = 0.01;
 
 function getChordNotes(chordString, noteCount) {
     let intervals = Chord.get(chordString).intervals

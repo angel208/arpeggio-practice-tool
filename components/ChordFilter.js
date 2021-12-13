@@ -8,15 +8,21 @@ import { Note } from '@tonaljs/tonal'
 
 export default function ChordFilter( ) {
 
+    const includedArpeggioStrings = useStore(state => state.includedArpeggioStrings)
+    const toggleArpeggioString = useStore(state => state.toggleArpeggioString)
+
+    const includedArpeggioFingers = useStore(state => state.includedArpeggioFingers)
+    const toggleArpeggioFinger = useStore(state => state.toggleArpeggioFinger)
+
     const includedChords = useStore(state => state.includedChords)
     const includeChords = useStore(state => state.includeChords)  
-    const removeChords = useStore(state => state.removeChords)  
+    const removeChords = useStore(state => state.removeChords)
+      
 
     const [flats, setFlats] = useState(true)
     const [chordTypes, setChordTypes] = useState(
         Object.fromEntries([ 'maj7', 'm7', '7' ].map( chord => { return [chord, true]}))
     );
-    
 
     function toggleFlats( flats) {
 
@@ -65,6 +71,12 @@ export default function ChordFilter( ) {
 
     }
 
+    useEffect(() => {
+        console.log("----")
+        console.log({includedArpeggioStrings})
+        console.log({includedArpeggioFingers})
+    }, [includedArpeggioStrings, includedArpeggioFingers])
+
 
     return (
         <div>
@@ -83,10 +95,12 @@ export default function ChordFilter( ) {
             <div className={styles.filterSection}>
                 <h3>Apreggio Filters</h3>
                 <div className={styles.filterGrid}>
-                    <ToggleSwitch key={'6th String'} name={'6th String'} checked={ true } callBack={ () => {toggleChordType(null)} } />
-                    <ToggleSwitch key={'5th String'} name={'5th String'} checked={ true } callBack={ () => {toggleChordType(null)} } />
-                    <ToggleSwitch key={'index finger'} name={'index finger'} checked={ true } callBack={ () => {toggleChordType(null)} } />
-                    <ToggleSwitch key={'middle finger'} name={'middle finger'} checked={ true } callBack={ () => {toggleChordType(null)} } />
+                    {includedArpeggioStrings.map( arpeggioString => (
+                        <ToggleSwitch key={arpeggioString.number} name={arpeggioString.name} checked={arpeggioString.active} callBack={ () => {toggleArpeggioString(arpeggioString.number, !arpeggioString.active)} } />
+                    )) }
+                    {includedArpeggioFingers.map( arpeggioFinger => (
+                        <ToggleSwitch key={arpeggioFinger.number} name={arpeggioFinger.name} checked={arpeggioFinger.active} callBack={ () => {toggleArpeggioFinger(arpeggioFinger.number, !arpeggioFinger.active)} } />
+                    )) }
                 </div>
             </div>
             
