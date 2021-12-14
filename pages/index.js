@@ -6,6 +6,7 @@ import ChordFilter from '../components/ChordFilter'
 import {getChordList} from '../utils/chordUtils'
 import ArpeggioDiagram from '../components/ArpeggioDiagram'
 import useStore from '../utils/hooks/useStore'
+import { MdOutlineLibraryMusic,  MdOutlineMusicVideo, MdVolumeUp, MdVolumeOff} from "react-icons/md";
 
 export const getStaticProps = async () => {
 
@@ -32,6 +33,10 @@ export default function Home({ chords }) {
 
   const [playLoop, setPlayLoop] = useState(false);
   const [playBack, setPlayBack] = useState(false);
+
+  const [muted, setMuted] = useState(false);
+  const [arpeggiated, setArpeggiated] = useState(true);
+
 
   const generateNextChord = () =>{
 
@@ -94,11 +99,11 @@ export default function Home({ chords }) {
           <h2 className={styles.chordName}>{currentChord?.name ? currentChord?.name : "-"}</h2>
           <h3 className={styles.chordNotes}>{currentChord?.intervals.join(' - ')}</h3>
           <h3 className={styles.chordIntervals}>{currentChord?.notes.join(' - ')}</h3>
-          <h3 className={styles.arpeggioData}>{currentArpeggio?.string.name + " - " + currentArpeggio?.finger.name}</h3>
+          <h3 className={styles.arpeggioData}>{ (currentArpeggio?.string.name ? currentArpeggio?.string.name + " - "  : "" ) + (currentArpeggio?.finger.name ? currentArpeggio?.finger.name : "")}</h3>
         </div>
 
         <ArpeggioDiagram chordString={currentChord?.symbol} string ={currentArpeggio?.string.number} finger = {currentArpeggio?.finger.number} />
-        <ChordPlayer chordString={currentChord?.symbol}  playback={playBack} noteCount={7} noteDelay={150}/> 
+        <ChordPlayer chordString={currentChord?.symbol}  playback={playBack} noteCount={7} muted={muted} arpeggiated={arpeggiated}/> 
         
         <LoopFunction callback={ generateNextChord } delay={5000} isPlaying={playLoop}/>
 
@@ -108,6 +113,15 @@ export default function Home({ chords }) {
           <button className={`${styles.btn} ${styles.inline}`} onClick={ generateNextChord }>Next</button>
           <button className={`${styles.btn} ${styles.inline}`} onClick={ () => { setPlayLoop(true) }}>Start Loop</button>
           <button className={`${styles.btn} ${styles.inline}`} onClick={ () => { setPlayLoop(false) }}>Stop Loop</button>
+        </div>
+
+        <div className={styles.playerOptionMenu}>
+          <button className={styles.playerOption} onClick={ () => setMuted(!muted)  }>
+          { muted ? <MdVolumeOff size={20} />  : <MdVolumeUp size={20} />}
+          </button>
+          <button className={styles.playerOption} onClick={ () => setArpeggiated(!arpeggiated)  }>
+            { arpeggiated ? <MdOutlineMusicVideo size={20}/> : <MdOutlineLibraryMusic size={20} />}
+          </button>
         </div>
 
       </div>

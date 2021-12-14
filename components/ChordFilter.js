@@ -84,7 +84,7 @@ export default function ChordFilter( ) {
            
 
             <div className={styles.filterSection}>
-                <h3>Chord Types</h3>
+                <h3>Chord Type Filters</h3>
                 <div className={styles.filterGrid}>
                     {Object.keys(chordTypes).map( chordType => (
                         <ToggleSwitch key={chordType} name={chordType} checked={chordTypes[chordType]} callBack={ () => {toggleChordType(chordType)} } />

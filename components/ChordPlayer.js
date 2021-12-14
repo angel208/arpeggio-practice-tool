@@ -9,7 +9,8 @@ const initialOctave = 2;
 const lenghtOfNote = 2400;
 const C1Position = 24;
 const C7Position = 96;
-const volume = 0.01;
+const volume = 0.03;
+const noteDelay = 150;
 
 function getChordNotes(chordString, noteCount) {
     let intervals = Chord.get(chordString).intervals
@@ -44,7 +45,7 @@ let generateIndexes = () => {
 
 }
 
-export default function ChordPlayer({chordString, noteCount = 4, noteDelay = 75, playback}) {
+export default function ChordPlayer({chordString, noteCount = 4, playback, muted=false, arpeggiated=true}) {
 
     const [chordMIDISequence, setChordMIDISequence] = useState([])
     const spriteDigits = generateIndexes();
@@ -57,6 +58,7 @@ export default function ChordPlayer({chordString, noteCount = 4, noteDelay = 75,
         
         if (!chordString || chordString == ' ') {console.log("no entro a useeffect chordplayer"); return}
 
+
         console.log({msg: "entra a useeffect chordplayer", chordString: chordString})
         let chordNotes = getChordNotes(chordString, noteCount)
     
@@ -68,11 +70,13 @@ export default function ChordPlayer({chordString, noteCount = 4, noteDelay = 75,
       }, [chordString, playback]);
 
 
+
     return (
         <>
             {
+                muted ? "" :
                 chordMIDISequence.map(({ sprite, time }, index) => (
-                    <PlayDelayed key={time} howl={howl} sprite={`${sprite}`} volume={volume} delayed={true} delay={index * noteDelay}  ></PlayDelayed>
+                    <PlayDelayed key={time} howl={howl} sprite={`${sprite}`} volume={volume} delayed={true} delay={ arpeggiated ? (index * noteDelay) : (index * 25)}  ></PlayDelayed>
                 ))
             }
 
