@@ -5,19 +5,19 @@ import mp3 from '../assets/pianosprite.mp3'
 import PlayDelayed from './PlayDelayed';
 import useUpdateEffect from '../utils/hooks/useUpdateEffect';
 
-const initialOctave = 2;
+
 const lenghtOfNote = 2400;
 const C1Position = 24;
 const C7Position = 96;
 const volume = 0.03;
 const noteDelay = 150;
 
-function getChordNotes(chordString, noteCount) {
+function getChordNotes(chordString, noteCount, initialOctave) {
     let intervals = Chord.get(chordString).intervals
     let root = Chord.get(chordString).tonic
 
     let notes = []
-    for (let i = 0, octave = initialOctave; i < noteCount; i++) {
+    for (let i = 0, octave = initialOctave - 1; i < noteCount; i++) {
 
         let intervalIndex = i % intervals.length;
 
@@ -28,6 +28,7 @@ function getChordNotes(chordString, noteCount) {
         let currentInterval = intervals[intervalIndex]
         notes.push(transpose(rootWithOctave, currentInterval))
     }
+    console.log({notes})
     return notes
 }
 
@@ -45,7 +46,7 @@ let generateIndexes = () => {
 
 }
 
-export default function ChordPlayer({chordString, noteCount = 4, playback, muted=false, arpeggiated=true}) {
+export default function ChordPlayer({chordString, initialOctave = 2, noteCount = 4, playback, muted=false, arpeggiated=true}) {
 
     const [chordMIDISequence, setChordMIDISequence] = useState([])
     const spriteDigits = generateIndexes();
@@ -60,7 +61,7 @@ export default function ChordPlayer({chordString, noteCount = 4, playback, muted
 
 
         console.log({msg: "entra a useeffect chordplayer", chordString: chordString})
-        let chordNotes = getChordNotes(chordString, noteCount)
+        let chordNotes = getChordNotes(chordString, noteCount, initialOctave)
     
         let now = Date.now();
         let newMIDISquence = chordNotes.map((chordNote, index) => ({ sprite: note(chordNote).midi, time: (now + index) }))

@@ -3,10 +3,11 @@ import { useState, useEffect} from 'react'
 import ChordPlayer from '../components/ChordPlayer'
 import LoopFunction from '../components/LoopFunction'
 import ChordFilter from '../components/ChordFilter'
-import {getChordList} from '../utils/chordUtils'
+import {getChordList, getChordNotes} from '../utils/chordUtils'
 import ArpeggioDiagram from '../components/ArpeggioDiagram'
 import useStore from '../utils/hooks/useStore'
 import { MdOutlineLibraryMusic,  MdOutlineMusicVideo, MdVolumeUp, MdVolumeOff} from "react-icons/md";
+import { getArpegioOctave } from '../utils/arpeggioutils'
 
 export const getStaticProps = async () => {
 
@@ -72,6 +73,7 @@ export default function Home({ chords }) {
     
     if (!playLoop) {
       setCurrentChord(null);
+      setCurrentArpeggio(null)
     }
     else{
       generateNextChord()
@@ -98,14 +100,19 @@ export default function Home({ chords }) {
           <h1 className={styles.chordSymbol}>{currentChord?.symbol }</h1>
           <h2 className={styles.chordName}>{currentChord?.name ? currentChord?.name : "-"}</h2>
           <h3 className={styles.chordNotes}>{currentChord?.intervals.join(' - ')}</h3>
-          <h3 className={styles.chordIntervals}>{currentChord?.notes.join(' - ')}</h3>
+          <h3 className={styles.chordIntervals}>{getChordNotes(currentChord?.symbol).join(' - ')}</h3>
           <h3 className={styles.arpeggioData}>{ (currentArpeggio?.string.name ? currentArpeggio?.string.name + " - "  : "" ) + (currentArpeggio?.finger.name ? currentArpeggio?.finger.name : "")}</h3>
         </div>
 
         <ArpeggioDiagram chordString={currentChord?.symbol} string ={currentArpeggio?.string.number} finger = {currentArpeggio?.finger.number} />
-        <ChordPlayer chordString={currentChord?.symbol}  playback={playBack} noteCount={7} muted={muted} arpeggiated={arpeggiated}/> 
+        <ChordPlayer chordString={currentChord?.symbol}
+                     initialOctave = {getArpegioOctave(currentChord?.symbol, currentArpeggio?.string.number, currentArpeggio?.finger.number)  }
+                     playback={playBack} 
+                     noteCount={7} 
+                     muted={muted} 
+                     arpeggiated={arpeggiated}/> 
         
-        <LoopFunction callback={ generateNextChord } delay={5000} isPlaying={playLoop}/>
+        <LoopFunction callback={ generateNextChord } delay={8000} isPlaying={playLoop}/>
 
         
         <div className={styles.loopButtons}>
@@ -123,7 +130,7 @@ export default function Home({ chords }) {
             { arpeggiated ? <MdOutlineMusicVideo size={20}/> : <MdOutlineLibraryMusic size={20} />}
           </button>
         </div>
-
+        
       </div>
 
     </div>
