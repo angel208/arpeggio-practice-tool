@@ -1,4 +1,9 @@
 .sidebarIcon{
     padding: 20px 0;
     text-align: center;
+    transition:  scale  0.3s;
+}
+
+.sidebarIcon:hover{
+    scale: 1.1;
 }

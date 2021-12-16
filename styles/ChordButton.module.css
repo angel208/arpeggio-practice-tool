@@ -9,11 +9,12 @@
     font-size: 0.6rem;
     cursor: pointer;
     min-width: 32px;
+    transition: box-shadow  0.2s;
 }
 
 .single:hover {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6);
-
+    
 }
  
 .single > h3{

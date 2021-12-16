@@ -38,6 +38,25 @@
   border: none;
   box-shadow: 0 4px 4px 0 rgba(0,0,0,0.1);
   cursor: pointer;
+  transition: box-shadow  0.2s;
+}
+
+.secondary{
+  background: none;
+  border: solid 1px #563BFFA6;
+  color: #563BFFE6;
+  transition: background 0.3s ;
+}
+
+.secondary:hover{
+  background: #563BFFE6;
+  border: none;
+  color: white;
+}
+
+
+.btn:hover{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
 }
 
 .single {
@@ -93,4 +112,9 @@
 background: none;
 border: none;
 cursor: pointer;
+transition:  scale  0.25s;
+}
+
+.playerOption:hover{
+  scale: 1.2;
 }

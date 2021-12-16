@@ -28,7 +28,6 @@ function getChordNotes(chordString, noteCount, initialOctave) {
         let currentInterval = intervals[intervalIndex]
         notes.push(transpose(rootWithOctave, currentInterval))
     }
-    console.log({notes})
     return notes
 }
 

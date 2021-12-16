@@ -118,8 +118,9 @@ export default function Home({ chords }) {
         <div className={styles.loopButtons}>
           <button className={`${styles.btn} ${styles.inline}`} onClick={ replayChord  }>Replay</button>
           <button className={`${styles.btn} ${styles.inline}`} onClick={ generateNextChord }>Next</button>
-          <button className={`${styles.btn} ${styles.inline}`} onClick={ () => { setPlayLoop(true) }}>Start Loop</button>
-          <button className={`${styles.btn} ${styles.inline}`} onClick={ () => { setPlayLoop(false) }}>Stop Loop</button>
+          <br></br>
+          <button className={`${styles.btn} ${styles.inline} ${styles.secondary}`} onClick={ () => { setPlayLoop(true) }}>Start Loop</button>
+          <button className={`${styles.btn} ${styles.inline} ${styles.secondary}`} onClick={ () => { setPlayLoop(false) }}>Stop Loop</button>
         </div>
 
         <div className={styles.playerOptionMenu}>
