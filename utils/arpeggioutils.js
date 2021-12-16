@@ -1,16 +1,38 @@
 import React from 'react'
 import { Chord, Note } from '@tonaljs/tonal'
+import {getChordNotes} from '../utils/chordUtils'
+
+const arpeggioMap = require('../data/arpeggioShapes.json');
 
 var tonalFretboard = require('tonal-fretboard')
-const fretBoardMap = getFretboard()
-const arpeggioMap = require('../data/arpeggioShapes.json');
-console.log({arpeggioMap})
+const fretBoardMap = getTonalFretboard()
 
-function getFretboard( startingFret = 1, endingFret = 16 ){
+
+function getTonalFretboard( startingFret = 1, endingFret = 16 ){
         const tuning = tonalFretboard.tuning('guitar')
         const fretboard = tonalFretboard.notes(tuning, startingFret, endingFret)
         const normalizedFretboard = fretboard.map( stringArray => stringArray.map( (note) => { return Note.accidentals(note) == "#" ? Note.enharmonic(note) : note }) )
         return normalizedFretboard
+}
+
+function getIntervalFromNote(note, intervalMap) {
+
+        if ( !note || !intervalMap ) return null
+
+        let pattern=new RegExp( `[ABCDEFGb#]+`,"g");
+        let rawNote = note.match(pattern)[0]
+        let interval = intervalMap.find( interval => {return interval.note == rawNote} )?.interval 
+        return interval == "1P" ? "R" : interval
+}
+
+
+function getIntervalMap(chordString) {
+
+        let intervals = Chord.get(chordString).intervals
+        let notes = getChordNotes(chordString)
+        let notesWithIntervals = intervals.map( (interval, intervalIndex) => { return { note: notes[intervalIndex] , interval: interval }  } )
+        return notesWithIntervals
+
 }
       
 
@@ -68,12 +90,28 @@ function getArpegioFirstNoteFret( chordString, string, finger ) {
         
 }
 
-function getArpeggioNotesMappedInFretboard( {arpeggioShape, startingFret} ){
+function getArpeggioNotesMappedInFretboard( {chordString, arpeggioShape, startingFret, showIntervals = true } ){
+
+        const intervalMap = getIntervalMap(chordString)
         const transposedArpeggioPositions = arpeggioShape.map( subarray => subarray.map( position => position +  startingFret))
+        
         const arpeggioFretboardMapped = fretBoardMap.map( (stringArray, stringIndex) => stringArray.map( (note, fretIndex) => {
-            const flatNote = Note.accidentals(note) == "#" ? Note.enharmonic(note) : note
-            return transposedArpeggioPositions[stringIndex].includes(fretIndex) ? flatNote : null
+            
+            const fretText = ''
+
+            if( showIntervals ){
+                const intervalName = getIntervalFromNote(note, intervalMap)
+                fretText = intervalName
+            }
+            else{
+                const flatNote = Note.accidentals(note) == "#" ? Note.enharmonic(note) : note
+                fretText = flatNote
+            }
+        
+            return transposedArpeggioPositions[stringIndex].includes(fretIndex) ? fretText : null
+
           }))
+
         arpeggioFretboardMapped =  arpeggioFretboardMapped.map(  (stringArray) => stringArray.filter( (note, fretIndex) => { return fretIndex >= startingFret }))
         return arpeggioFretboardMapped.reverse()
 }
