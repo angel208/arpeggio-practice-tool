@@ -81,13 +81,7 @@
 }
 
       
-.chordSymbol,
-.chordName,
-.chordNotes,
-.chordIntervals{
-  margin: 10px;
-  height: 35px;
-}
+
 
 .inline{
   display: inline;
@@ -96,7 +90,6 @@
 
 .loopButtons{
   text-align: center;
-  margin-top: 30px;
   margin-bottom: 15px;
 }
 

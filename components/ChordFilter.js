@@ -5,6 +5,7 @@ import ChordButton from './ChordButton'
 import ToggleSwitch from './Filters/ToggleSwitch'
 import useStore from '../utils/hooks/useStore'
 import { Note } from '@tonaljs/tonal'
+import { Grid, Box} from '@chakra-ui/react'
 
 export default function ChordFilter( ) {
 
@@ -21,7 +22,7 @@ export default function ChordFilter( ) {
 
     const [flats, setFlats] = useState(true)
     const [chordTypes, setChordTypes] = useState(
-        Object.fromEntries([ 'maj7', 'm7', '7' ].map( chord => { return [chord, true]}))
+        Object.fromEntries([ 'maj7', 'm7', '7', 'm7b5' ].map( chord => { return [chord, true]}))
     );
 
     function toggleFlats( flats) {
@@ -79,9 +80,7 @@ export default function ChordFilter( ) {
 
 
     return (
-        <div>
-
-           
+        <Box  mt={'0px'} w='100%' p={5} pl={0} > 
 
             <div className={styles.filterSection}>
                 <h3>Chord Type Filters</h3>
@@ -112,7 +111,7 @@ export default function ChordFilter( ) {
             </div>
 
             <h3 className={styles.title}>Included Chords</h3>
-            <div className={styles.notesGrid}>
+            <Grid templateColumns={'repeat(auto-fill, minmax(4.5rem, 1fr))'}>
             
             { 
                 includedChords.map( chord => (
@@ -122,9 +121,9 @@ export default function ChordFilter( ) {
                 )) 
             }
             
-            </div>
+            </Grid>
             
 
-        </div>
+        </Box>
     )
 }

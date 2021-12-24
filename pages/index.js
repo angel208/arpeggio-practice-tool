@@ -8,6 +8,7 @@ import ArpeggioDiagram from '../components/ArpeggioDiagram'
 import useStore from '../utils/hooks/useStore'
 import { MdOutlineLibraryMusic,  MdOutlineMusicVideo, MdVolumeUp, MdVolumeOff} from "react-icons/md";
 import { getArpegioOctave } from '../utils/arpeggioutils'
+import {Heading, Text, Flex, VStack} from '@chakra-ui/react'
 
 export const getStaticProps = async () => {
 
@@ -86,23 +87,23 @@ export default function Home({ chords }) {
   }, [playBack])
 
   return (
-    <div className={styles.container}>
-      
-      <div>
-        <h1 className={styles.pageTitle}>Arpeggio Practice</h1>
+    <Flex h={{base:'auto', md:'auto'}} pt={[0, 10, 16]}  direction={{base:'column-reverse', md:'row'}}>
+
+      <VStack w={{base:'full', md:'60%'}} h="full" p={10} pt={0} spacing={0} alignItems="flex-start">
+        <Heading size="lg" fontWeight='medium'>Arpeggio Practice</Heading>
         <ChordFilter/>
-      </div>
+      </VStack>
 
 
-      <div className={styles.chordPlayer}>
+      <VStack w={{base:'full', md:'40%'}} h="fit-content" p={10} spacing={5} boxShadow='md' borderRadius='2xl' background='white'>
 
-        <div className={styles.currentChordContainer}>
-          <h1 className={styles.chordSymbol}>{currentChord?.symbol }</h1>
-          <h2 className={styles.chordName}>{currentChord?.name ? currentChord?.name : "-"}</h2>
-          <h3 className={styles.chordNotes}>{currentChord?.intervals.join(' - ')}</h3>
-          <h3 className={styles.chordIntervals}>{getChordNotes(currentChord?.symbol).join(' - ')}</h3>
-          <h3 className={styles.arpeggioData}>{ (currentArpeggio?.string.name ? currentArpeggio?.string.name + " - "  : "" ) + (currentArpeggio?.finger.name ? currentArpeggio?.finger.name : "")}</h3>
-        </div>
+        <VStack spacing={0}>
+          <Heading h='45px' fontSize='3xl' fontWeight='bold' >{currentChord?.symbol }</Heading>
+          <Text h='40px' fontSize='xl' pb={12}>{ (currentArpeggio?.string.name ? currentArpeggio?.string.name + " - "  : "" ) + (currentArpeggio?.finger.name ? currentArpeggio?.finger.name : "")}</Text>
+          <Text h='35px'>{currentChord?.name ? currentChord?.name : "-"}</Text>
+          <Text h='35px'>{currentChord?.intervals.join(' - ')}</Text>
+          <Text h='35px'>{getChordNotes(currentChord?.symbol).join(' - ')}</Text>
+        </VStack>
 
         <ArpeggioDiagram chordString={currentChord?.symbol} string ={currentArpeggio?.string.number} finger = {currentArpeggio?.finger.number} />
         <ChordPlayer chordString={currentChord?.symbol}
@@ -132,8 +133,8 @@ export default function Home({ chords }) {
           </button>
         </div>
         
-      </div>
+      </VStack>
 
-    </div>
+    </Flex>
   )
 }
