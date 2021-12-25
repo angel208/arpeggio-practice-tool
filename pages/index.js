@@ -1,14 +1,14 @@
-import styles from '../styles/Home.module.css'
 import { useState, useEffect} from 'react'
 import ChordPlayer from '../components/ChordPlayer'
 import LoopFunction from '../components/LoopFunction'
-import ChordFilter from '../components/ChordFilter'
+import ChordFilter from '../components/Filters/ChordFilter'
 import {getChordList, getChordNotes} from '../utils/chordUtils'
 import ArpeggioDiagram from '../components/ArpeggioDiagram'
 import useStore from '../utils/hooks/useStore'
 import { MdOutlineLibraryMusic,  MdOutlineMusicVideo, MdVolumeUp, MdVolumeOff} from "react-icons/md";
 import { getArpegioOctave } from '../utils/arpeggioutils'
-import {Heading, Text, Flex, VStack} from '@chakra-ui/react'
+import {Heading, Text, Flex, VStack, SimpleGrid, Button, HStack} from '@chakra-ui/react'
+import PlayerSetting from '../components/Player/PlayerSetting'
 
 export const getStaticProps = async () => {
 
@@ -90,15 +90,15 @@ export default function Home({ chords }) {
     <Flex h={{base:'auto', md:'auto'}} pt={[0, 10, 16]}  direction={{base:'column-reverse', md:'row'}}>
 
       <VStack w={{base:'full', md:'60%'}} h="full" p={10} pt={0} spacing={0} alignItems="flex-start">
-        <Heading size="lg" fontWeight='medium'>Arpeggio Practice</Heading>
+        <Heading size="xl" fontWeight='medium'>Arpeggio Practice</Heading>
         <ChordFilter/>
       </VStack>
 
 
-      <VStack w={{base:'full', md:'40%'}} h="fit-content" p={10} spacing={5} boxShadow='md' borderRadius='2xl' background='white'>
+      <VStack w={{base:'full', md:'40%'}} h="fit-content" p={8} spacing={5} boxShadow='md' borderRadius='2xl' background='white'>
 
         <VStack spacing={0}>
-          <Heading h='45px' fontSize='3xl' fontWeight='bold' >{currentChord?.symbol }</Heading>
+          <Heading h='45px' fontSize='3xl' fontWeight='bold' pb={10} >{currentChord?.symbol }</Heading>
           <Text h='40px' fontSize='xl' pb={12}>{ (currentArpeggio?.string.name ? currentArpeggio?.string.name + " - "  : "" ) + (currentArpeggio?.finger.name ? currentArpeggio?.finger.name : "")}</Text>
           <Text h='35px'>{currentChord?.name ? currentChord?.name : "-"}</Text>
           <Text h='35px'>{currentChord?.intervals.join(' - ')}</Text>
@@ -116,22 +116,17 @@ export default function Home({ chords }) {
         <LoopFunction callback={ generateNextChord } delay={8000} isPlaying={playLoop}/>
 
         
-        <div className={styles.loopButtons}>
-          <button className={`${styles.btn} ${styles.inline}`} onClick={ replayChord  }>Replay</button>
-          <button className={`${styles.btn} ${styles.inline}`} onClick={ generateNextChord }>Next</button>
-          <br></br>
-          <button className={`${styles.btn} ${styles.inline} ${styles.secondary}`} onClick={ () => { setPlayLoop(true) }}>Start Loop</button>
-          <button className={`${styles.btn} ${styles.inline} ${styles.secondary}`} onClick={ () => { setPlayLoop(false) }}>Stop Loop</button>
-        </div>
+        <SimpleGrid columns={2} spacing={5}>
+          <Button onClick={ replayChord  }>Replay</Button>
+          <Button onClick={ generateNextChord  }>Next</Button>
+          <Button onClick={ () => { setPlayLoop(true) } } variant='secondary'>Start Loop</Button>
+          <Button onClick={ () => { setPlayLoop(false) }  } variant='secondary'>Stop Loop</Button>
+        </SimpleGrid>
 
-        <div className={styles.playerOptionMenu}>
-          <button className={styles.playerOption} onClick={ () => setMuted(!muted)  }>
-          { muted ? <MdVolumeOff size={20} />  : <MdVolumeUp size={20} />}
-          </button>
-          <button className={styles.playerOption} onClick={ () => setArpeggiated(!arpeggiated)  }>
-            { arpeggiated ? <MdOutlineMusicVideo size={20}/> : <MdOutlineLibraryMusic size={20} />}
-          </button>
-        </div>
+        <HStack pt={5} spacing={8}>
+          <PlayerSetting onClick={() => setMuted(!muted)} stateVariable={muted} TrueIcon={MdVolumeOff} FalseIcon={MdVolumeUp}/>
+          <PlayerSetting onClick={() => setArpeggiated(!arpeggiated)} stateVariable={arpeggiated} TrueIcon={MdOutlineMusicVideo} FalseIcon={MdOutlineLibraryMusic}/>
+        </HStack>
         
       </VStack>
 

@@ -1,11 +1,10 @@
 import React from 'react'
-import styles from '../styles/ChordFilter.module.css'
 import { useState, useEffect} from 'react'
 import ChordButton from './ChordButton'
-import ToggleSwitch from './Filters/ToggleSwitch'
-import useStore from '../utils/hooks/useStore'
+import ToggleSwitch from './ToggleSwitch'
+import useStore from '../../utils/hooks/useStore'
 import { Note } from '@tonaljs/tonal'
-import { Grid, Box} from '@chakra-ui/react'
+import { Grid, Box, VStack, Heading} from '@chakra-ui/react'
 
 export default function ChordFilter( ) {
 
@@ -80,37 +79,37 @@ export default function ChordFilter( ) {
 
 
     return (
-        <Box  mt={'0px'} w='100%' p={5} pl={0} > 
+        <VStack  alignItems={'left'} spacing={2} mt={'0px'} w='100%' px={5} pl={0} > 
 
-            <div className={styles.filterSection}>
-                <h3>Chord Type Filters</h3>
-                <div className={styles.filterGrid}>
+            <Box>
+                <Heading size={'md'} pb={1}>Chord Type Filters</Heading>
+                <Grid templateColumns={'repeat(5, 1fr)'}>
                     {Object.keys(chordTypes).map( chordType => (
                         <ToggleSwitch key={chordType} name={chordType} checked={chordTypes[chordType]} callBack={ () => {toggleChordType(chordType)} } />
                     )) }
-                </div>
-            </div>
+                </Grid>
+            </Box>
 
-            <div className={styles.filterSection}>
-                <h3>Apreggio Filters</h3>
-                <div className={styles.filterGrid}>
+            <Box>
+                <Heading size={'md'} pb={1}>Apreggio Filters</Heading>
+                <Grid templateColumns={'repeat(5, 1fr)'}>
                     {includedArpeggioStrings.map( arpeggioString => (
                         <ToggleSwitch key={arpeggioString.number} name={arpeggioString.name} checked={arpeggioString.active} callBack={ () => {toggleArpeggioString(arpeggioString.number, !arpeggioString.active)} } />
                     )) }
                     {includedArpeggioFingers.map( arpeggioFinger => (
                         <ToggleSwitch key={arpeggioFinger.number} name={arpeggioFinger.name} checked={arpeggioFinger.active} callBack={ () => {toggleArpeggioFinger(arpeggioFinger.number, !arpeggioFinger.active)} } />
                     )) }
-                </div>
-            </div>
+                </Grid>
+            </Box>
             
-            <div className={styles.filterSection}>
-                <h3>Other Filters</h3>
-                <div className={styles.filterGrid}>
+            <Box>
+                <Heading size={'md'} pb={1}>Other Filters</Heading>
+                <Grid templateColumns={'repeat(5, 1fr)'}>
                     <ToggleSwitch name={`flats`} checked={flats} callBack={ () => {toggleFlats(!flats)} } />
-                </div>
-            </div>
+                </Grid>
+            </Box>
 
-            <h3 className={styles.title}>Included Chords</h3>
+            <Heading size={'lg'} pt={10}>Included Chords</Heading>
             <Grid templateColumns={'repeat(auto-fill, minmax(4.5rem, 1fr))'}>
             
             { 
@@ -124,6 +123,6 @@ export default function ChordFilter( ) {
             </Grid>
             
 
-        </Box>
+        </VStack>
     )
 }

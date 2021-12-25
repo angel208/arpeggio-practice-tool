@@ -1,8 +1,6 @@
 import React from 'react'
-import Link from 'next/link'
-import NavBar from './NavBar'
 import Footer from './Footer/Footer'
-import SideBar from './SideBar'
+import SideBar from './Sidebar/SideBar'
 import {Container, Box} from '@chakra-ui/react'
 
 export default function Layout({children}) {
