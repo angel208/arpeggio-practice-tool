@@ -96,7 +96,7 @@ export default function ChordFilter( ) {
             <Box>
                 <Heading size={'md'} pb={1} display={'inline-block'}>Apreggio Filters</Heading>
                 <FilterTooltip text='Here, you can select which strings do you want the root of the arpeggios to be in. You can also choose which fingers do you want to use to play the root of the arpeggios.'/>
-                <Grid templateColumns={{base:'repeat(4, 1fr)', md:'repeat(5, 1fr)'}} rowGap={5}  alignItems={'center'}    mt={4}>
+                <Grid templateColumns={{base:'repeat(3, 1fr)', md:'repeat(5, 1fr)'}} rowGap={5}  alignItems={'center'}    mt={4}>
                     {includedArpeggioStrings.map( arpeggioString => (
                         <ToggleSwitch key={arpeggioString.number} name={arpeggioString.name} checked={arpeggioString.active} callBack={ () => {toggleArpeggioString(arpeggioString.number, !arpeggioString.active)} } />
                     )) }
