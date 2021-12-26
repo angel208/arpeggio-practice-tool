@@ -1,7 +1,7 @@
 const styles =  {
     global: {
       'html, body': {
-        background: 'body.500',
+        background: 'body.500'
       }
     },
 }

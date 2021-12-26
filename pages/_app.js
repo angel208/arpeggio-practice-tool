@@ -1,7 +1,6 @@
 import Layout from '../components/Layout'
 import '../styles/globals.css'
 import { ChakraProvider } from '@chakra-ui/react'
-import { extendTheme, withDefaultColorScheme } from '@chakra-ui/react'
 import customTheme from '../theme/theme'
 
 
@@ -9,7 +8,7 @@ import customTheme from '../theme/theme'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ChakraProvider theme={customTheme} >
+    <ChakraProvider theme={customTheme}>
       <Layout>
         <Component {...pageProps} />
       </Layout>

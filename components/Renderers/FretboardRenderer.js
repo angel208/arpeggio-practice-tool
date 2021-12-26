@@ -5,7 +5,7 @@ import Note from './Note'
 
 export default function FretboardRenderer({ frets = 6 , strings = 6, initialFret = 0,  fretBoardMap }) {
     return (
-        <div>
+        <div className={styles.fretboardContainer}>
             <div className={styles.fretboard}>
                 {[...Array(frets)].map((fret, fretIndex) => {
                     return (

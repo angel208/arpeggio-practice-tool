@@ -1,5 +1,29 @@
+/* Extra small devices (phones, 600px and down) */
+@media (max-width: 600px) {
+    .fretboardContainer{
+        width: 100%;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .fretboardContainer{
+        width: 65%;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .fretboardContainer{
+        width: 80%;
+    }
+}
+
+
+
+
 .fretboard{
-    width: fit-content;
+    width: 100%;
     height: 150px;
     margin-left: auto;
     margin-right: auto;
@@ -8,7 +32,7 @@
 
 .fret{
     height: 100%;
-    width: 60px;
+    width: 16.6%;
     display: inline-block;
 }
 

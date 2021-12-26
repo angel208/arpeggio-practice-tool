@@ -33,8 +33,8 @@ export default function ArpeggioDiagram( { chordString, string = 6, finger = 1 }
 
 
     return (
-        <div>
+        
           <FretboardRenderer initialFret={initialFret} fretBoardMap={fretboard}  />
-        </div>
+        
     )
 }

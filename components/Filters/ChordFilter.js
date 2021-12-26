@@ -4,7 +4,9 @@ import ChordButton from './ChordButton'
 import ToggleSwitch from './ToggleSwitch'
 import useStore from '../../utils/hooks/useStore'
 import { Note } from '@tonaljs/tonal'
-import { Grid, Box, VStack, Heading} from '@chakra-ui/react'
+import { Grid, Box, VStack, Heading, Tooltip } from '@chakra-ui/react'
+import FilterTooltip from './FilterTooltip'
+
 
 export default function ChordFilter( ) {
 
@@ -79,11 +81,12 @@ export default function ChordFilter( ) {
 
 
     return (
-        <VStack  alignItems={'left'} spacing={2} mt={'0px'} w='100%' px={5} pl={0} > 
+        <VStack  alignItems={'left'} spacing={2} mt={'0px'} w='100%' px={{base:0, md:5}} pl={0} > 
 
             <Box>
-                <Heading size={'md'} pb={1}>Chord Type Filters</Heading>
-                <Grid templateColumns={'repeat(5, 1fr)'} mt={4}> 
+                <Heading size={'md'} pb={1} display={'inline-block'}>Chord Type Filters</Heading>
+                <FilterTooltip text='Here you can select which chord types do you want to play.'/>
+                <Grid templateColumns={{base:'repeat(4, 1fr)', md:'repeat(5, 1fr)'}} rowGap={5} alignItems={'center'}   mt={4}> 
                     {Object.keys(chordTypes).map( chordType => (
                         <ToggleSwitch key={chordType} name={chordType} checked={chordTypes[chordType]} callBack={ () => {toggleChordType(chordType)} } />
                     )) }
@@ -91,8 +94,9 @@ export default function ChordFilter( ) {
             </Box>
 
             <Box>
-                <Heading size={'md'} pb={1}>Apreggio Filters</Heading>
-                <Grid templateColumns={'repeat(5, 1fr)'} mt={4}>
+                <Heading size={'md'} pb={1} display={'inline-block'}>Apreggio Filters</Heading>
+                <FilterTooltip text='Here, you can select which strings do you want the root of the arpeggios to be in. You can also choose which fingers do you want to use to play the root of the arpeggios.'/>
+                <Grid templateColumns={{base:'repeat(4, 1fr)', md:'repeat(5, 1fr)'}} rowGap={5}  alignItems={'center'}    mt={4}>
                     {includedArpeggioStrings.map( arpeggioString => (
                         <ToggleSwitch key={arpeggioString.number} name={arpeggioString.name} checked={arpeggioString.active} callBack={ () => {toggleArpeggioString(arpeggioString.number, !arpeggioString.active)} } />
                     )) }
@@ -103,24 +107,28 @@ export default function ChordFilter( ) {
             </Box>
             
             <Box>
-                <Heading size={'md'} pb={1}>Other Filters</Heading>
-                <Grid templateColumns={'repeat(5, 1fr)'} mt={4}>
+                <Heading size={'md'} pb={1} display={'inline-block'}>Other Filters</Heading>
+                <FilterTooltip text='Here you can apply other filters, things like exclude or include flat chords.'/>
+                <Grid templateColumns={{base:'repeat(4, 1fr)', md:'repeat(5, 1fr)'}} alignItems={'center'}  rowGap={5} mt={4} >
                     <ToggleSwitch name={`flats`} checked={flats} callBack={ () => {toggleFlats(!flats)} } />
                 </Grid>
             </Box>
-
-            <Heading size={'lg'} pt={10}>Included Chords</Heading>
-            <Grid templateColumns={'repeat(auto-fill, minmax(4.5rem, 1fr))'}>
             
-            { 
-                includedChords.map( chord => (
-    
-                        <ChordButton key={chord.symbol} chord = { chord } active={ chord.active } callback={ toggleChord }/>
-
-                )) 
-            }
+            <Box>
+                <Heading size={'lg'} pt={10} display={'inline-block'}>Included Chords</Heading>
+                <FilterTooltip text='Here you can see which chords are selected to appear randomly in the arpeggio player. You can also select or unselect specific chords.'/>
+                <Grid templateColumns={'repeat(auto-fill, minmax(4.5rem, 1fr))'}>
+                
+                    { 
+                        includedChords.map( chord => (
             
-            </Grid>
+                                <ChordButton key={chord.symbol} chord = { chord } active={ chord.active } callback={ toggleChord }/>
+
+                        )) 
+                    }
+                
+                </Grid>
+            </Box>
             
 
         </VStack>

@@ -3,7 +3,7 @@ const FormLabel ={
         color: 'gray.500',
         fontWeight: 'lighter',
         pb: '5px',
-        mr: '7px'
+        mx: '7px'
     },
   }
   

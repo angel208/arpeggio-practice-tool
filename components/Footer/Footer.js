@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { FaLinkedin, FaGithub } from 'react-icons/fa';
 import SocialButton from './SocialButton';
 import {
     Box,
@@ -21,16 +21,13 @@ export default function Footer() {
                 spacing={4}
                 justify={{ base: 'center', md: 'space-between' }}
                 align={{ base: 'center', md: 'center' }}>
-                <Text color={'gray.500'}>2022 Arpeggio Practice Tool. MIT License</Text>
+                <Text color={'gray.500'}>2022 - Arpeggio Practice Tool. MIT License.</Text>
                 <Stack direction={'row'} spacing={6}>
-                    <SocialButton label={'Twitter'} href={'#'}>
-                        <FaTwitter />
+                    <SocialButton label={'Linkedin'} href={'https://github.com/angel208'}>
+                        <FaLinkedin />
                     </SocialButton>
-                    <SocialButton label={'YouTube'} href={'#'}>
-                        <FaYoutube />
-                    </SocialButton>
-                    <SocialButton label={'Instagram'} href={'#'}>
-                        <FaInstagram />
+                    <SocialButton label={'GitHub'} href={'https://www.linkedin.com/in/angelfabriciop/'}>
+                        <FaGithub />
                     </SocialButton>
                 </Stack>
             </Container>
