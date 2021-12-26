@@ -29,6 +29,7 @@ export default function ChordButton( { chord, active, callback } ) {
             transition={'box-shadow  0.2s'}
             borderLeft={'8px solid'}
             borderColor={ active ? "brand.100" : "white" }
+            sx={{ caretColor: 'transparent' }}
             >
                 <Text my={1.5} cur>
                     { chordSymbol }

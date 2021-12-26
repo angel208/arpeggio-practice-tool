@@ -95,7 +95,7 @@ export default function Home({ chords }) {
       </VStack>
 
 
-      <VStack w={{base:'full', md:'40%'}} h="fit-content" p={8} spacing={5} boxShadow='md' borderRadius='2xl' background='white'>
+      <VStack w={{base:'90%', md:'40%'}} h="fit-content" mx={5} mb={7} p={8} spacing={5} boxShadow='md' borderRadius='2xl' background='white'>
 
         <VStack spacing={0}>
           <Heading h='45px' fontSize='3xl' fontWeight='bold' pb={10} >{currentChord?.symbol }</Heading>
