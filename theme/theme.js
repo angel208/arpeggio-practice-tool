@@ -5,10 +5,12 @@ import Heading from "./components/heading";
 import Switch from "./components/switch";
 import FormLabel from "./components/formLabel";
 
-import colors from "./styles";
+import styles from "./styles";
+import colors from './colors';
 
 
 const customTheme = extendTheme({
+    styles,
     colors,
     components: {
       Button: Button,

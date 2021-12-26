@@ -1,11 +1,9 @@
-const colors = {
-    brand: {
-      100: '#563BFFE6',
-      500: '#563BFFE6',
+const styles =  {
+    global: {
+      'html, body': {
+        background: 'body.500',
+      },
     },
-    body:{
-      100: '#f4f5fe'
-    }
-  }
-  
-export default colors  
+}
+
+export default styles  
