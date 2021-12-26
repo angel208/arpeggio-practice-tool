@@ -1,29 +1,24 @@
 import React from 'react'
-import styles from "../../styles/ToggleSwitch.module.css"
+import { Box, FormControl, FormLabel, Switch } from "@chakra-ui/react"
 
-export default function ToggleSwitch({name, checked, callBack, optionLabels = ["", ""], disabled=false}) {    
+export default function ToggleSwitch({name, checked, callBack, disabled=false}) {    
 
     return (
-        <div>
-            <p className={styles.label}>{name}</p>
-            <div className={`${styles.toggleSwitch}`}>
-                
-                <input
-                type="checkbox"
-                className={styles.toggleSwitchCheckbox}
+        <Box>
+            
+            <FormControl display='flex' alignItems='center'>
+                <FormLabel htmlFor='email-alerts' mb='0'>
+                    {name}
+                </FormLabel>
+                <Switch 
                 name={name}
                 id={name}
-                checked={checked}
-                disabled={disabled}
-                onChange={callBack}
-                />
-                <label className={styles.toggleSwitchLabel} 
-                       htmlFor={name} >
-                <span className={styles.toggleSwitchInner} data-yes={optionLabels[0]} data-no={optionLabels[1]} />
-                <span className={styles.toggleSwitchSwitch} />
-                </label>
-            </div>
-        </div>
+                isChecked={checked}
+                isDisabled={disabled}
+                onChange={callBack} />
+            </FormControl>
+
+        </Box>
        
     )
 }

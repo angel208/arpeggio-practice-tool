@@ -83,7 +83,7 @@ export default function ChordFilter( ) {
 
             <Box>
                 <Heading size={'md'} pb={1}>Chord Type Filters</Heading>
-                <Grid templateColumns={'repeat(5, 1fr)'}>
+                <Grid templateColumns={'repeat(5, 1fr)'} mt={4}> 
                     {Object.keys(chordTypes).map( chordType => (
                         <ToggleSwitch key={chordType} name={chordType} checked={chordTypes[chordType]} callBack={ () => {toggleChordType(chordType)} } />
                     )) }
@@ -92,7 +92,7 @@ export default function ChordFilter( ) {
 
             <Box>
                 <Heading size={'md'} pb={1}>Apreggio Filters</Heading>
-                <Grid templateColumns={'repeat(5, 1fr)'}>
+                <Grid templateColumns={'repeat(5, 1fr)'} mt={4}>
                     {includedArpeggioStrings.map( arpeggioString => (
                         <ToggleSwitch key={arpeggioString.number} name={arpeggioString.name} checked={arpeggioString.active} callBack={ () => {toggleArpeggioString(arpeggioString.number, !arpeggioString.active)} } />
                     )) }
@@ -104,7 +104,7 @@ export default function ChordFilter( ) {
             
             <Box>
                 <Heading size={'md'} pb={1}>Other Filters</Heading>
-                <Grid templateColumns={'repeat(5, 1fr)'}>
+                <Grid templateColumns={'repeat(5, 1fr)'} mt={4}>
                     <ToggleSwitch name={`flats`} checked={flats} callBack={ () => {toggleFlats(!flats)} } />
                 </Grid>
             </Box>
