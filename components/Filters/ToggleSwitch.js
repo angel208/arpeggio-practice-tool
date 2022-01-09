@@ -7,15 +7,16 @@ export default function ToggleSwitch({name, checked, callBack, disabled=false}) 
         <Box>
             
             <FormControl display='flex' alignItems='center' >
-                <FormLabel htmlFor='email-alerts' mb='0'>
-                    {name}
-                </FormLabel>
+                
                 <Switch 
                 name={name}
                 id={name}
                 isChecked={checked}
                 isDisabled={disabled}
                 onChange={callBack} />
+                <FormLabel htmlFor='email-alerts' mb='0' w={'75px'}>
+                    {name}
+                </FormLabel>
             </FormControl>
 
         </Box>

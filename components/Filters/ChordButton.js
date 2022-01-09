@@ -18,7 +18,7 @@ export default function ChordButton( { chord, active, callback } ) {
             <Box 
             py={0.5} 
             px={1}
-            my={2.5} 
+            my={1.5} 
             mx={1} 
             background={'white'} 
             borderRadius={'5px'}

@@ -90,7 +90,7 @@ export default function Home({ chords }) {
     <Flex h={{base:'auto', md:'auto'}} pt={[0, 10, 16]}  direction={{base:'column-reverse', md:'row'}}>
 
       <VStack w={{base:'full', md:'60%'}} h="full" p={10} pt={0} spacing={0} alignItems="flex-start">
-        <Heading size="xl" fontWeight='medium'>Arpeggio Practice</Heading>
+        <Heading size="xl" fontWeight='medium' pt={0} pl={{base:'0', md:5}} >Arpeggio Practice</Heading>
         <ChordFilter/>
       </VStack>
 
