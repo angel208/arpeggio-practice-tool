@@ -7,7 +7,7 @@ import ArpeggioDiagram from '../components/ArpeggioDiagram'
 import useStore from '../utils/hooks/useStore'
 import { MdOutlineLibraryMusic,  MdOutlineMusicVideo, MdVolumeUp, MdVolumeOff} from "react-icons/md";
 import { getArpegioOctave } from '../utils/arpeggioutils'
-import {Heading, Text, Flex, VStack, SimpleGrid, Button, HStack} from '@chakra-ui/react'
+import {Heading, Text, Flex, VStack, Box, Button, HStack} from '@chakra-ui/react'
 import PlayerSetting from '../components/Player/PlayerSetting'
 
 export const getStaticProps = async () => {
@@ -116,12 +116,14 @@ export default function Home({ chords }) {
         <LoopFunction callback={ generateNextChord } delay={8000} isPlaying={playLoop}/>
 
         
-        <SimpleGrid columns={2} spacing={5}>
-          <Button onClick={ replayChord  }>Replay</Button>
-          <Button onClick={ generateNextChord  }>Next</Button>
-          <Button onClick={ () => { setPlayLoop(true) } } variant='secondary'>Start Loop</Button>
-          <Button onClick={ () => { setPlayLoop(false) }  } variant='secondary'>Stop Loop</Button>
-        </SimpleGrid>
+        <VStack spacing={4}>
+          <HStack spacing={4}>
+            <Button onClick={ replayChord  } w={'120px'}>Replay</Button>
+            <Button onClick={ generateNextChord  } w={'120px'}>Next</Button>
+          </HStack>
+          <Button hidden={ playLoop } onClick={ () => { setPlayLoop(true) } } variant='secondary' w={'100%'}>Start Loop</Button>
+          <Button hidden={ !playLoop } onClick={ () => { setPlayLoop(false) }  } variant='secondary' w={'100%'}>Stop Loop</Button>
+        </VStack>
 
         <HStack pt={5} spacing={8}>
           <PlayerSetting onClick={() => setMuted(!muted)} stateVariable={muted} TrueIcon={MdVolumeOff} FalseIcon={MdVolumeUp}/>
