@@ -20,7 +20,7 @@ export default function NotFound() {
                 <Heading >Oooopppsss...</Heading>
                 <Heading size="md">That page cannot be found, automatically redirecting...</Heading>
                 <Link href="/">
-                    <ChakraLink color="brand.500">go back</ChakraLink>
+                    <ChakraLink color="brand.500">go back.</ChakraLink>
                 </Link>
             </VStack>
         </Container>
